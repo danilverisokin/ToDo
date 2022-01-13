@@ -13,10 +13,10 @@ const ButtonBar = () => {
                     Sort by date
                 </div>
                 
-                <ul className="buttonsSortArrows">
-                    <li className="buttonsSortArrowsItem">/\</li>
-                    <li className="buttonsSortArrowsItem">\/</li>
-                </ul>
+                <div className="buttonsSortArrows">
+                    <button className="buttonsSortArrowsItem">/\</button>
+                    <button className="buttonsSortArrowsItem">\/</button>
+                </div>
             </div>
 
         </div>
