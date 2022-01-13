@@ -1,6 +1,7 @@
 import SearchBar from "./SearchBar"
 import ButtonBar from "./ButtonBar";
 import TaskBar from "./TaskBar";
+import NavBar from "./NavBar";
 
 function App() {
   return (
@@ -17,6 +18,10 @@ function App() {
 
         <div className="container">
           <TaskBar />
+        </div>
+
+        <div className="container">
+          <NavBar />
         </div>
 
       </div>

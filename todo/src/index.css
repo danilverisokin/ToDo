@@ -140,3 +140,24 @@ body {
 .taskListItemButton {
   background-color: antiquewhite;
 }
+
+/* NAVBAR */
+.slider {
+  width: 400px;
+  margin: auto;
+
+  display: flex;
+  justify-content: center;
+}
+.sliderItem {
+  width: 40px;
+  margin-right: 5px;
+
+  background-color: antiquewhite;
+  padding: 5px;
+
+  border-radius: 10px;
+}
+.sliderArrow:first-child {
+  margin-left: 5px;
+}
