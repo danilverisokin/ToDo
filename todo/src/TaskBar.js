@@ -8,7 +8,7 @@ const TaskBar = () => {
                 <div className="taskListItemHalf">
                     <input className="taskListItemElem taskListItemCheckbox" type='checkbox' />
 
-                    <div className="taskListItemElem taskListItemText">Some text</div>
+                    <input className="taskListItemElem taskListItemText" type="text" />
                 </div>
                 <div className="taskListItemHalf">
                     <input className="taskListItemElem taskListItemDate" type='date' />
@@ -23,7 +23,7 @@ const TaskBar = () => {
                 <div className="taskListItemHalf">
                     <input className="taskListItemElem taskListItemCheckbox" type='checkbox' />
 
-                    <div className="taskListItemElem taskListItemText">Some text</div>
+                    <input className="taskListItemElem taskListItemText" type="text" />
                 </div>
                 <div className="taskListItemHalf">
                     <input className="taskListItemElem taskListItemDate" type='date' />
@@ -38,7 +38,7 @@ const TaskBar = () => {
                 <div className="taskListItemHalf">
                     <input className="taskListItemElem taskListItemCheckbox" type='checkbox' />
 
-                    <div className="taskListItemElem taskListItemText">Some text</div>
+                    <input className="taskListItemElem taskListItemText" type="text" />
                 </div>
                 <div className="taskListItemHalf">
                     <input className="taskListItemElem taskListItemDate" type='date' />
@@ -53,7 +53,7 @@ const TaskBar = () => {
                 <div className="taskListItemHalf">
                     <input className="taskListItemElem taskListItemCheckbox" type='checkbox' />
 
-                    <div className="taskListItemElem taskListItemText">Some text</div>
+                    <input className="taskListItemElem taskListItemText" type="text" />
                 </div>
                 <div className="taskListItemHalf">
                     <input className="taskListItemElem taskListItemDate" type='date' />
@@ -68,7 +68,7 @@ const TaskBar = () => {
                 <div className="taskListItemHalf">
                     <input className="taskListItemElem taskListItemCheckbox" type='checkbox' />
 
-                    <div className="taskListItemElem taskListItemText">Some text</div>
+                    <input className="taskListItemElem taskListItemText" type="text" />
                 </div>
                 <div className="taskListItemHalf">
                     <input className="taskListItemElem taskListItemDate" type='date' />

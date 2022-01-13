@@ -134,6 +134,9 @@ body {
 .taskListItemElem:last-child {
   margin-right: 0;
 }
+.taskListItemText {
+  background-color: antiquewhite;
+}
 .taskListItemDate {
   background-color: antiquewhite;
 }
