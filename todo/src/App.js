@@ -1,13 +1,13 @@
-import './App.css';
-import Title from "./Title"
+import SearchBar from "./SearchBar"
 
 function App() {
   return (
-    <div className="App">
-      <Title />
-      <Title />
-      
+
+    <div className="all_content">
+      <SearchBar />
+
     </div>
+    
   );
 }
 
