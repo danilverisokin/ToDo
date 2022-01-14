@@ -1,5 +1,9 @@
 const TaskBar = (props) => {
-  const { tasksList } = props;
+  const { tasksList, setTasksList } = props;
+
+  // const handleClick = () => {
+  //   setTasksList(() => tasksList.remove(e.getAttribute('key')));
+  // };
 
   return (
     <ul className="taskList">
@@ -13,7 +17,12 @@ const TaskBar = (props) => {
           <div className="taskListItemHalf">
             <input className="taskListItemElem taskListItemDate" type="date" />
 
-            <input className="taskListItemElem taskListItemButton" type="button" value="X" />
+            <input
+              // onClick={handleClick}
+              className="taskListItemElem taskListItemButton"
+              type="button"
+              value="X"
+            />
           </div>
         </li>
       ))}

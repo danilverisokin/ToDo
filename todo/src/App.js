@@ -5,9 +5,11 @@ import ButtonBar from './components/ButtonBar';
 import TaskBar from './components/TaskBar';
 import NavBar from './components/NavBar';
 
-function App() {
+function App(props) {
   const [tasksList, setTasksList] = useState([]);
   console.log(tasksList);
+
+  console.log(tasksList[1]);
 
   return (
     <div className="all_content">

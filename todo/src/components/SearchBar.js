@@ -1,13 +1,13 @@
 import { useState } from 'react';
 
 const SearchBar = (props) => {
-  console.log(props);
   const { setTasksList, tasksList } = props;
 
   const [taskName, setTaskName] = useState('');
 
   const handleChange = (e) => {
     setTaskName(e.target.value);
+    console.log(taskName);
   };
 
   const handleKeyDown = (e) => {
