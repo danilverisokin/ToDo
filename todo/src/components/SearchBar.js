@@ -7,12 +7,12 @@ const SearchBar = (props) => {
 
   const handleChange = (e) => {
     setTaskName(e.target.value);
-    console.log(taskName);
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && taskName) {
       setTasksList([...tasksList, taskName]);
+      setTaskName('');
     }
   };
 
@@ -25,6 +25,7 @@ const SearchBar = (props) => {
           onChange={handleChange}
           type="text"
           placeholder="I want to..."
+          value={taskName}
         />
       </div>
     </div>
