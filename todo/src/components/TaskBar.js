@@ -1,10 +1,11 @@
 const TaskBar = (props) => {
   const { tasksList, setTasksList } = props;
 
-  // const handleClick = () => {
-  //   setTasksList(() => tasksList.remove(e.getAttribute('key')));
-  // };
-
+  const handleClick = (event) => {
+    const newArr = [...tasksList];
+    const filteredNewArr = newArr.filter((_, index) => index !== Number(event.target.id));
+    setTasksList(filteredNewArr);
+  };
   return (
     <ul className="taskList">
       {tasksList.map((el, index) => (
@@ -17,12 +18,13 @@ const TaskBar = (props) => {
           <div className="taskListItemHalf">
             <input className="taskListItemElem taskListItemDate" type="date" />
 
-            <input
-              // onClick={handleClick}
+            <button
+              id={index}
+              onClick={handleClick}
               className="taskListItemElem taskListItemButton"
-              type="button"
-              value="X"
-            />
+            >
+              X
+            </button>
           </div>
         </li>
       ))}

@@ -7,9 +7,6 @@ import NavBar from './components/NavBar';
 
 function App(props) {
   const [tasksList, setTasksList] = useState([]);
-  console.log(tasksList);
-
-  console.log(tasksList[1]);
 
   return (
     <div className="all_content">
