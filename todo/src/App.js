@@ -7,6 +7,7 @@ import NavBar from './components/NavBar';
 
 function App(props) {
   const [tasksList, setTasksList] = useState([]);
+  const [editCardId, setEditCardId] = useState();
 
   return (
     <div className="all_content">
@@ -19,7 +20,12 @@ function App(props) {
       </div>
 
       <div className="container">
-        <TaskBar setTasksList={setTasksList} tasksList={tasksList} />
+        <TaskBar
+          setTasksList={setTasksList}
+          tasksList={tasksList}
+          editCardId={editCardId}
+          setEditCardId={setEditCardId}
+        />
       </div>
 
       <div className="container">
