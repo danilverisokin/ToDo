@@ -126,6 +126,9 @@ button {
   display: flex;
   align-items: center;
 }
+.taskListItemHalf:first-child {
+  min-width: 50%;
+}
 .taskListItemElem {
   margin-right: 10px;
 }
@@ -135,6 +138,7 @@ button {
 .taskListItemText {
   background-color: antiquewhite;
   cursor: pointer;
+  min-width: 100%;
 }
 .taskListItemDate {
   background-color: antiquewhite;

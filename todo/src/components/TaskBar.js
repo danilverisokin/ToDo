@@ -49,6 +49,7 @@ const TaskBar = (props) => {
                 type="text"
                 value={newCardName}
                 onChange={handleChange}
+                autoFocus
               />
             ) : (
               <span id={id} onClick={(e) => handleEdit(e, name)} className="taskListItemText">
