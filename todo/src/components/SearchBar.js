@@ -1,8 +1,8 @@
 import { useState } from 'react';
+import { v4 as uuid } from 'uuid';
 
 const SearchBar = (props) => {
   const { setTasksList, tasksList } = props;
-
   const [taskName, setTaskName] = useState('');
 
   const handleChange = (e) => {
@@ -11,7 +11,7 @@ const SearchBar = (props) => {
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && taskName) {
-      setTasksList([...tasksList, taskName]);
+      setTasksList([...tasksList, { id: uuid(), name: taskName }]);
       setTaskName('');
     }
   };

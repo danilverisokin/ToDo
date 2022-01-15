@@ -2,27 +2,23 @@ const TaskBar = (props) => {
   const { tasksList, setTasksList } = props;
 
   const handleClick = (event) => {
-    const newArr = [...tasksList];
-    const filteredNewArr = newArr.filter((_, index) => index !== Number(event.target.id));
+    const filteredNewArr = tasksList.filter(({ id }) => id !== event.target.id);
+
     setTasksList(filteredNewArr);
   };
   return (
     <ul className="taskList">
-      {tasksList.map((el, index) => (
-        <li key={index} className="taskListItem">
+      {tasksList.map(({ name, id }) => (
+        <li key={id} className="taskListItem">
           <div className="taskListItemHalf">
             <input className="taskListItemElem taskListItemCheckbox" type="checkbox" />
 
-            <span>{el}</span>
+            <span>{name}</span>
           </div>
           <div className="taskListItemHalf">
             <input className="taskListItemElem taskListItemDate" type="date" />
 
-            <button
-              id={index}
-              onClick={handleClick}
-              className="taskListItemElem taskListItemButton"
-            >
+            <button id={id} onClick={handleClick} className="taskListItemElem taskListItemButton">
               X
             </button>
           </div>
