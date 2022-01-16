@@ -11,7 +11,7 @@ const SearchBar = (props) => {
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && taskName) {
-      setTasksList([...tasksList, { id: uuid(), name: taskName }]);
+      setTasksList([...tasksList, { id: uuid(), name: taskName, checked: false }]);
       setTaskName('');
     }
   };
