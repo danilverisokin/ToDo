@@ -4,13 +4,13 @@ const TaskBar = (props) => {
   const { tasksList, setTasksList, editCardId, setEditCardId } = props;
   const [newCardName, setNewCardName] = useState();
 
-  const handleClick = (event) => {
-    const filteredNewArr = tasksList.filter(({ id }) => id !== event.target.id);
+  const handleClick = (actId) => {
+    const filteredNewArr = tasksList.filter(({ id }) => id !== actId);
     setTasksList(filteredNewArr);
   };
 
-  const handleEdit = (event, name) => {
-    setEditCardId(event.target.id);
+  const handleEdit = (name, id) => {
+    setEditCardId(id);
     setNewCardName(name);
   };
   const handleChange = (e) => {
@@ -52,7 +52,7 @@ const TaskBar = (props) => {
                 autoFocus
               />
             ) : (
-              <span id={id} onClick={(e) => handleEdit(e, name)} className="taskListItemText">
+              <span onClick={() => handleEdit(name, id)} className="taskListItemText">
                 {name}
               </span>
             )}
@@ -60,7 +60,7 @@ const TaskBar = (props) => {
           <div className="taskListItemHalf">
             <input className="taskListItemElem taskListItemDate" type="date" />
 
-            <button id={id} onClick={handleClick} className="taskListItemElem taskListItemButton">
+            <button onClick={() => handleClick(id)} className="taskListItemElem taskListItemButton">
               X
             </button>
           </div>

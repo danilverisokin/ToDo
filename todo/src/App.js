@@ -9,6 +9,11 @@ function App(props) {
   const [tasksList, setTasksList] = useState([]);
   const [editCardId, setEditCardId] = useState();
 
+  // useEffect(() => {
+  //   console.log('mount');
+  //   // return () => console.log('unmount');
+  // }, [kek]);
+
   return (
     <div className="all_content">
       <div className="container">
