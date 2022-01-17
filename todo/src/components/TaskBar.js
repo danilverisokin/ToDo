@@ -1,12 +1,13 @@
 import { useState } from 'react';
 
 const TaskBar = (props) => {
-  const { tasksList, setTasksList, editCardId, setEditCardId, setX } = props;
+  const { tasksList, setTasksList, editCardId, setEditCardId, setX, x } = props;
   const [newCardName, setNewCardName] = useState();
 
   const handleClick = (actId) => {
-    const filteredNewArr = tasksList.filter(({ id }) => id !== actId);
+    const filteredNewArr = x.filter(({ id }) => id !== actId);
     setTasksList(filteredNewArr);
+    setX(filteredNewArr);
   };
 
   const handleEdit = (name, id) => {
@@ -28,9 +29,9 @@ const TaskBar = (props) => {
         }
         return item;
       });
+      setX(newArr);
       setTasksList(newArr);
       setEditCardId(null);
-      setX(newArr);
     }
     if (e.key === 'Escape') {
       setEditCardId(null);
@@ -50,7 +51,7 @@ const TaskBar = (props) => {
 
   return (
     <ul className="taskList">
-      {tasksList.map(({ name, id, checked }) => (
+      {tasksList.map(({ name, id, checked, date }) => (
         <li key={id} className="taskListItem">
           <div className="taskListItemHalf">
             <input
@@ -75,7 +76,7 @@ const TaskBar = (props) => {
             )}
           </div>
           <div className="taskListItemHalf">
-            <input className="taskListItemElem taskListItemDate" type="date" />
+            <span className="taskListItemElem taskListItemDate">{date}</span>
 
             <button onClick={() => handleClick(id)} className="taskListItemElem taskListItemButton">
               X

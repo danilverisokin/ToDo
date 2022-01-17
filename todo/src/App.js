@@ -27,6 +27,7 @@ function App(props) {
 
       <div className="container">
         <TaskBar
+          x={x}
           setX={setX}
           setTasksList={setTasksList}
           tasksList={tasksList}
