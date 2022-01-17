@@ -21,7 +21,7 @@ function App(props) {
       </div>
 
       <div className="container">
-        <ButtonBar />
+        <ButtonBar setTasksList={setTasksList} tasksList={tasksList} />
       </div>
 
       <div className="container">
