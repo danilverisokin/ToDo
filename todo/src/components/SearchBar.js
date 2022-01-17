@@ -13,7 +13,6 @@ const SearchBar = (props) => {
     if (e.key === 'Enter' && taskName) {
       setTasksList([...tasksList, { id: uuid(), name: taskName, checked: false }]);
       setX([...tasksList, { id: uuid(), name: taskName, checked: false }]);
-      console.log();
 
       setTaskName('');
     }

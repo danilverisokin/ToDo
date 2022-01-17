@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 const TaskBar = (props) => {
-  const { tasksList, setTasksList, editCardId, setEditCardId } = props;
+  const { tasksList, setTasksList, editCardId, setEditCardId, setX } = props;
   const [newCardName, setNewCardName] = useState();
 
   const handleClick = (actId) => {
@@ -30,6 +30,7 @@ const TaskBar = (props) => {
       });
       setTasksList(newArr);
       setEditCardId(null);
+      setX(newArr);
     }
     if (e.key === 'Escape') {
       setEditCardId(null);
