@@ -11,14 +11,17 @@ const SearchBar = (props) => {
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && taskName) {
-      const now = new Date();
-      console.log(now);
-      const date = now.getTime();
+      // const now = new Date();
+      // console.log(now);
+      // const date = now.getTime();
       // `Date: ${now.getDate()}.0${now.getMonth() + 1}.${now.getFullYear()}`;
       // ${now.getHours()}.${now.getMinutes()}.${now.getSeconds()}
 
-      setTasksList([...tasksList, { id: uuid(), name: taskName, checked: false, date: date }]);
-      setX([...tasksList, { id: uuid(), name: taskName, checked: false, date: date }]);
+      setTasksList([
+        ...tasksList,
+        { id: uuid(), name: taskName, checked: false, date: new Date() },
+      ]);
+      setX([...tasksList, { id: uuid(), name: taskName, checked: false, date: new Date() }]);
 
       setTaskName('');
     }

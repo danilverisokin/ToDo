@@ -48,6 +48,16 @@ const TaskBar = (props) => {
     });
     setTasksList(newArr);
   };
+  const handleChangeData = (e, chId) => {
+    const newArr = x.map((item) => {
+      if (chId === item.id) {
+        item.date = new Date(e.target.value);
+        return item;
+      }
+      return item;
+    });
+    setTasksList(newArr);
+  };
   return (
     <ul className="taskList">
       {tasksList.map(({ name, id, checked, date }) => (
@@ -75,7 +85,12 @@ const TaskBar = (props) => {
             )}
           </div>
           <div className="taskListItemHalf">
-            <span className="taskListItemElem taskListItemDate">Time:{date}</span>
+            <input
+              className="taskListItemElem taskListItemDate"
+              type="date"
+              onChange={(e) => handleChangeData(e, id)}
+              value={date.toISOString().slice(0, 10)}
+            />
 
             <button onClick={() => handleClick(id)} className="taskListItemElem taskListItemButton">
               X

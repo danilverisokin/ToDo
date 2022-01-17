@@ -1,5 +1,5 @@
 const ButtonBar = (props) => {
-  const { setTasksList, tasksList, x } = props;
+  const { setTasksList, x } = props;
 
   const handleDoneClick = () => {
     setTasksList(x.filter((item) => item.checked === true));
@@ -12,16 +12,16 @@ const ButtonBar = (props) => {
   };
   const handleSortUp = () => {
     const newArr = [...x].sort((a, b) => {
-      if (a.date > b.date) return 1;
-      if (a.date < b.date) return -1;
+      if (a.date.getTime() > b.date.getTime()) return 1;
+      if (a.date.getTime() < b.date.getTime()) return -1;
       return 0;
     });
     setTasksList(newArr);
   };
   const handleSortDown = () => {
     const newArr = [...x].sort((a, b) => {
-      if (a.date < b.date) return 1;
-      if (a.date > b.date) return -1;
+      if (a.date.getTime() < b.date.getTime()) return 1;
+      if (a.date.getTime() > b.date.getTime()) return -1;
       return 0;
     });
     setTasksList(newArr);
