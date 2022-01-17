@@ -20,7 +20,7 @@ const TaskBar = (props) => {
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
-      const newArr = tasksList.map((item) => {
+      const newArr = x.map((item) => {
         if (item.id === editCardId) {
           return {
             ...item,
@@ -48,7 +48,6 @@ const TaskBar = (props) => {
     });
     setTasksList(newArr);
   };
-
   return (
     <ul className="taskList">
       {tasksList.map(({ name, id, checked, date }) => (
@@ -76,7 +75,7 @@ const TaskBar = (props) => {
             )}
           </div>
           <div className="taskListItemHalf">
-            <span className="taskListItemElem taskListItemDate">{date}</span>
+            <span className="taskListItemElem taskListItemDate">Time:{date}</span>
 
             <button onClick={() => handleClick(id)} className="taskListItemElem taskListItemButton">
               X

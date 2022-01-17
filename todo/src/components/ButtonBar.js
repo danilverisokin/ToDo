@@ -11,26 +11,20 @@ const ButtonBar = (props) => {
     setTasksList(x);
   };
   const handleSortUp = () => {
-    const newArr = tasksList.sort((a, b) => {
+    const newArr = [...x].sort((a, b) => {
       if (a.date > b.date) return 1;
-      if (a.date === b.date) return 0;
       if (a.date < b.date) return -1;
+      return 0;
     });
-    console.log(newArr);
-
     setTasksList(newArr);
-    console.log(tasksList);
   };
   const handleSortDown = () => {
-    const newArr = tasksList.sort((a, b) => {
+    const newArr = [...x].sort((a, b) => {
       if (a.date < b.date) return 1;
-      if (a.date === b.date) return 0;
       if (a.date > b.date) return -1;
+      return 0;
     });
-    console.log(newArr);
-
     setTasksList(newArr);
-    console.log(tasksList);
   };
 
   return (

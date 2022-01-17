@@ -13,7 +13,7 @@ const SearchBar = (props) => {
     if (e.key === 'Enter' && taskName) {
       const now = new Date();
       console.log(now);
-      let date = `Time: ${now.getMilliseconds()}`;
+      const date = now.getTime();
       // `Date: ${now.getDate()}.0${now.getMonth() + 1}.${now.getFullYear()}`;
       // ${now.getHours()}.${now.getMinutes()}.${now.getSeconds()}
 
