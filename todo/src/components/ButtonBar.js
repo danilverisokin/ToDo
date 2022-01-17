@@ -1,22 +1,14 @@
-import { useState } from 'react';
-
 const ButtonBar = (props) => {
-  const { tasksList, setTasksList } = props;
-
-  const [x, setX] = useState(tasksList);
+  const { setTasksList, x } = props;
 
   const handleDoneClick = () => {
-    setX(tasksList);
-    setTasksList(tasksList.filter((item) => item.checked === true));
+    setTasksList(x.filter((item) => item.checked === true));
   };
   const handleUndoneClick = () => {
-    setX(tasksList);
-    console.log(x);
-    setTasksList(tasksList.filter((item) => item.checked === false));
+    setTasksList(x.filter((item) => item.checked === false));
   };
   const handleAllClick = () => {
     setTasksList(x);
-    console.log(x);
   };
   return (
     <div className="buttons">

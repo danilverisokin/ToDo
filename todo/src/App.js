@@ -8,6 +8,7 @@ import NavBar from './components/NavBar';
 function App(props) {
   const [tasksList, setTasksList] = useState([]);
   const [editCardId, setEditCardId] = useState();
+  const [x, setX] = useState(tasksList);
 
   // useEffect(() => {
   //   console.log('mount');
@@ -17,11 +18,11 @@ function App(props) {
   return (
     <div className="all_content">
       <div className="container">
-        <SearchBar setTasksList={setTasksList} tasksList={tasksList} />
+        <SearchBar setTasksList={setTasksList} tasksList={tasksList} setX={setX} />
       </div>
 
       <div className="container">
-        <ButtonBar setTasksList={setTasksList} tasksList={tasksList} />
+        <ButtonBar setTasksList={setTasksList} tasksList={tasksList} x={x} />
       </div>
 
       <div className="container">
