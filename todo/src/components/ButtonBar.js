@@ -1,17 +1,17 @@
 const ButtonBar = (props) => {
-  const { setTasksList, x } = props;
+  const { setTasksList, saveBox } = props;
 
   const handleDoneClick = () => {
-    setTasksList(x.filter((item) => item.checked === true));
+    setTasksList(saveBox.filter((item) => item.checked === true));
   };
   const handleUndoneClick = () => {
-    setTasksList(x.filter((item) => item.checked === false));
+    setTasksList(saveBox.filter((item) => item.checked === false));
   };
   const handleAllClick = () => {
-    setTasksList(x);
+    setTasksList(saveBox);
   };
   const handleSortUp = () => {
-    const newArr = [...x].sort((a, b) => {
+    const newArr = [...saveBox].sort((a, b) => {
       if (a.date.getTime() > b.date.getTime()) return 1;
       if (a.date.getTime() < b.date.getTime()) return -1;
       return 0;
@@ -19,7 +19,7 @@ const ButtonBar = (props) => {
     setTasksList(newArr);
   };
   const handleSortDown = () => {
-    const newArr = [...x].sort((a, b) => {
+    const newArr = [...saveBox].sort((a, b) => {
       if (a.date.getTime() < b.date.getTime()) return 1;
       if (a.date.getTime() > b.date.getTime()) return -1;
       return 0;

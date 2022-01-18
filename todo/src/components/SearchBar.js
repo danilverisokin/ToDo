@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { v4 as uuid } from 'uuid';
 
 const SearchBar = (props) => {
-  const { setTasksList, tasksList, setX } = props;
+  const { setTasksList, tasksList, setSaveBox } = props;
   const [taskName, setTaskName] = useState('');
 
   const handleChange = (e) => {
@@ -21,7 +21,7 @@ const SearchBar = (props) => {
         ...tasksList,
         { id: uuid(), name: taskName, checked: false, date: new Date() },
       ]);
-      setX([...tasksList, { id: uuid(), name: taskName, checked: false, date: new Date() }]);
+      setSaveBox([...tasksList, { id: uuid(), name: taskName, checked: false, date: new Date() }]);
 
       setTaskName('');
     }

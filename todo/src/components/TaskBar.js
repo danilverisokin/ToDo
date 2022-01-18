@@ -1,13 +1,13 @@
 import { useState } from 'react';
 
 const TaskBar = (props) => {
-  const { tasksList, setTasksList, editCardId, setEditCardId, setX, x } = props;
+  const { tasksList, setTasksList, editCardId, setEditCardId, setSaveBox, saveBox } = props;
   const [newCardName, setNewCardName] = useState();
 
   const handleClick = (actId) => {
-    const filteredNewArr = x.filter(({ id }) => id !== actId);
+    const filteredNewArr = saveBox.filter(({ id }) => id !== actId);
     setTasksList(filteredNewArr);
-    setX(filteredNewArr);
+    setSaveBox(filteredNewArr);
   };
 
   const handleEdit = (name, id) => {
@@ -20,7 +20,7 @@ const TaskBar = (props) => {
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
-      const newArr = x.map((item) => {
+      const newArr = saveBox.map((item) => {
         if (item.id === editCardId) {
           return {
             ...item,
@@ -29,7 +29,7 @@ const TaskBar = (props) => {
         }
         return item;
       });
-      setX(newArr);
+      setSaveBox(newArr);
       setTasksList(newArr);
       setEditCardId(null);
     }
@@ -49,7 +49,7 @@ const TaskBar = (props) => {
     setTasksList(newArr);
   };
   const handleChangeData = (e, chId) => {
-    const newArr = x.map((item) => {
+    const newArr = saveBox.map((item) => {
       if (chId === item.id) {
         item.date = new Date(e.target.value);
         return item;
