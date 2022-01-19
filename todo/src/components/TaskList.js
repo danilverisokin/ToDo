@@ -1,23 +1,32 @@
 import { useState } from 'react';
 
-const TaskBar = (props) => {
-  const { tasksList, setTasksList, editCardId, setEditCardId, setSaveBox, saveBox } = props;
+const TaskList = (props) => {
+  const { tasksList, setTasksList, editCardId, setEditCardId, saveBox, setSaveBox } = props;
   const [newCardName, setNewCardName] = useState();
 
-  const handleClick = (actId) => {
-    const filteredNewArr = saveBox.filter(({ id }) => id !== actId);
-    setTasksList(filteredNewArr);
-    setSaveBox(filteredNewArr);
+  // Функция для изменения состояния чекбокса в объекте-карточке
+  const handleCheckbox = (e, chId) => {
+    const newArr = tasksList.map((item) => {
+      if (chId === item.id) {
+        item.checked = e.target.checked;
+        return item;
+      }
+      return item;
+    });
+    setTasksList(newArr);
   };
-
+  // Функция описывающая начало редактирования
   const handleEdit = (name, id) => {
     setEditCardId(id);
     setNewCardName(name);
+    console.log(editCardId);
+    console.log(newCardName);
   };
+  // Функция записывающая новое имя карточки при редактированиии
   const handleChange = (e) => {
     setNewCardName(e.target.value);
   };
-
+  // Функция срабатывающая по нажитии ENTER, сохраняяет измененое имя в оба массива
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       const newArr = saveBox.map((item) => {
@@ -37,19 +46,9 @@ const TaskBar = (props) => {
       setEditCardId(null);
     }
   };
-
-  const handleCheckbox = (e, chId) => {
-    const newArr = tasksList.map((item) => {
-      if (chId === item.id) {
-        item.checked = e.target.checked;
-        return item;
-      }
-      return item;
-    });
-    setTasksList(newArr);
-  };
+  // Функция вносящаяя измения даты в карточку, дял двух массивов
   const handleChangeData = (e, chId) => {
-    const newArr = saveBox.map((item) => {
+    const newArr = tasksList.map((item) => {
       if (chId === item.id) {
         item.date = new Date(e.target.value);
         return item;
@@ -58,6 +57,13 @@ const TaskBar = (props) => {
     });
     setTasksList(newArr);
   };
+  // Функция удаляющщая карточку
+  const handleClickDelete = (actId) => {
+    const filteredNewArr = saveBox.filter(({ id }) => id !== actId);
+    setTasksList(filteredNewArr);
+    setSaveBox(filteredNewArr);
+  };
+
   return (
     <ul className="taskList">
       {tasksList.map(({ name, id, checked, date }) => (
@@ -84,6 +90,7 @@ const TaskBar = (props) => {
               </span>
             )}
           </div>
+
           <div className="taskListItemHalf">
             <input
               className="taskListItemElem taskListItemDate"
@@ -92,7 +99,10 @@ const TaskBar = (props) => {
               value={date.toISOString().slice(0, 10)}
             />
 
-            <button onClick={() => handleClick(id)} className="taskListItemElem taskListItemButton">
+            <button
+              onClick={() => handleClickDelete(id)}
+              className="taskListItemElem taskListItemButton"
+            >
               X
             </button>
           </div>
@@ -102,4 +112,4 @@ const TaskBar = (props) => {
   );
 };
 
-export default TaskBar;
+export default TaskList;

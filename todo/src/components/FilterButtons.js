@@ -1,27 +1,32 @@
-const ButtonBar = (props) => {
-  const { setTasksList, saveBox } = props;
+const FilterButtons = (props) => {
+  const { tasksList, setTasksList, saveBox } = props;
 
-  const handleDoneClick = () => {
-    setTasksList(saveBox.filter((item) => item.checked === true));
-  };
-  const handleUndoneClick = () => {
-    setTasksList(saveBox.filter((item) => item.checked === false));
-  };
+  // Функция выводит весь список
   const handleAllClick = () => {
     setTasksList(saveBox);
   };
+  // Выводить только отмеченные задачи
+  const handleDoneClick = () => {
+    setTasksList(saveBox.filter((item) => item.checked === true));
+  };
+  // Выводит только не отмеченные задачи
+  const handleUndoneClick = () => {
+    setTasksList(saveBox.filter((item) => item.checked === false));
+  };
+  // Фильтрует по убыванию
   const handleSortUp = () => {
-    const newArr = [...saveBox].sort((a, b) => {
-      if (a.date.getTime() > b.date.getTime()) return 1;
-      if (a.date.getTime() < b.date.getTime()) return -1;
+    const newArr = [...tasksList].sort((a, b) => {
+      if (a.date.getTime() < b.date.getTime()) return 1;
+      if (a.date.getTime() > b.date.getTime()) return -1;
       return 0;
     });
     setTasksList(newArr);
   };
+  // Фильтрует по возрастанию
   const handleSortDown = () => {
-    const newArr = [...saveBox].sort((a, b) => {
-      if (a.date.getTime() < b.date.getTime()) return 1;
-      if (a.date.getTime() > b.date.getTime()) return -1;
+    const newArr = [...tasksList].sort((a, b) => {
+      if (a.date.getTime() > b.date.getTime()) return 1;
+      if (a.date.getTime() < b.date.getTime()) return -1;
       return 0;
     });
     setTasksList(newArr);
@@ -57,4 +62,4 @@ const ButtonBar = (props) => {
   );
 };
 
-export default ButtonBar;
+export default FilterButtons;

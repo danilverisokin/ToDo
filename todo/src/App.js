@@ -1,32 +1,37 @@
 import { useState } from 'react';
 
-import SearchBar from './components/SearchBar';
-import ButtonBar from './components/ButtonBar';
-import TaskBar from './components/TaskBar';
-import NavBar from './components/NavBar';
+import TaskInput from './components/TaskInput';
+import FilterButtons from './components/FilterButtons';
+import ListSlider from './components/ListSlider';
+import TaskList from './components/TaskList';
 
 function App(props) {
   const [tasksList, setTasksList] = useState([]);
-  const [editCardId, setEditCardId] = useState();
   const [saveBox, setSaveBox] = useState(tasksList);
+  const [editCardId, setEditCardId] = useState();
 
   // useEffect(() => {
-  //   console.log('mount');
-  //   // return () => console.log('unmount');
-  // }, [kek]);
+  //   if (saveBox.length >= 5) {
+  //     setTaskListStorage([...taskListStorage, saveBox]);
+  //     console.log(taskListStorage);
+  //     setSaveBox([]);
+  //     setTasksList([]);
+  //   }
+  // return () => console.log('unmount');
+  // }, [saveBox]);
 
   return (
     <div className="all_content">
       <div className="container">
-        <SearchBar setTasksList={setTasksList} tasksList={tasksList} setSaveBox={setSaveBox} />
+        <TaskInput setTasksList={setTasksList} tasksList={tasksList} setSaveBox={setSaveBox} />
       </div>
 
       <div className="container">
-        <ButtonBar setTasksList={setTasksList} tasksList={tasksList} saveBox={saveBox} />
+        <FilterButtons tasksList={tasksList} setTasksList={setTasksList} saveBox={saveBox} />
       </div>
 
       <div className="container">
-        <TaskBar
+        <TaskList
           saveBox={saveBox}
           setSaveBox={setSaveBox}
           setTasksList={setTasksList}
@@ -37,7 +42,7 @@ function App(props) {
       </div>
 
       <div className="container">
-        <NavBar />
+        <ListSlider setSaveBox={setSaveBox} setTasksList={setTasksList} />
       </div>
     </div>
   );

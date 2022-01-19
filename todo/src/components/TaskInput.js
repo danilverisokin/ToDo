@@ -1,28 +1,22 @@
 import { useState } from 'react';
 import { v4 as uuid } from 'uuid';
 
-const SearchBar = (props) => {
+const TaskInput = (props) => {
   const { setTasksList, tasksList, setSaveBox } = props;
   const [taskName, setTaskName] = useState('');
 
+  // Функция отслеживающая изменения при вводе
   const handleChange = (e) => {
     setTaskName(e.target.value);
   };
-
+  // Функция создающаяя карточки
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && taskName) {
-      // const now = new Date();
-      // console.log(now);
-      // const date = now.getTime();
-      // `Date: ${now.getDate()}.0${now.getMonth() + 1}.${now.getFullYear()}`;
-      // ${now.getHours()}.${now.getMinutes()}.${now.getSeconds()}
-
       setTasksList([
         ...tasksList,
         { id: uuid(), name: taskName, checked: false, date: new Date() },
       ]);
       setSaveBox([...tasksList, { id: uuid(), name: taskName, checked: false, date: new Date() }]);
-
       setTaskName('');
     }
   };
@@ -42,4 +36,4 @@ const SearchBar = (props) => {
     </div>
   );
 };
-export default SearchBar;
+export default TaskInput;
