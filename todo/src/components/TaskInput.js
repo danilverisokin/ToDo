@@ -2,21 +2,22 @@ import { useState } from 'react';
 import { v4 as uuid } from 'uuid';
 
 const TaskInput = (props) => {
-  const { setTasksList, tasksList, setSaveBox } = props;
+  const { saveBox, setSaveBox, taskListsFiltered, setTaskListsFiltered } = props;
   const [taskName, setTaskName] = useState('');
 
   // Функция отслеживающая изменения при вводе
   const handleChange = (e) => {
     setTaskName(e.target.value);
   };
-  // Функция создающаяя карточки
+  // Функция создающаяя массив с карточками
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && taskName) {
-      setTasksList([
-        ...tasksList,
-        { id: uuid(), name: taskName, checked: false, date: new Date() },
+      const id = uuid();
+      setTaskListsFiltered([
+        ...taskListsFiltered,
+        { id: id, name: taskName, checked: false, date: new Date() },
       ]);
-      setSaveBox([...tasksList, { id: uuid(), name: taskName, checked: false, date: new Date() }]);
+      setSaveBox([...saveBox, { id: id, name: taskName, checked: false, date: new Date() }]);
       setTaskName('');
     }
   };

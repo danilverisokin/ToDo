@@ -1,26 +1,27 @@
 import { useState } from 'react';
 
 const TaskList = (props) => {
-  const { tasksList, setTasksList, editCardId, setEditCardId, saveBox, setSaveBox } = props;
+  const { tasksList, saveBox, setSaveBox, setTaskListsFiltered } = props;
   const [newCardName, setNewCardName] = useState();
+  const [editCardId, setEditCardId] = useState();
 
   // Функция для изменения состояния чекбокса в объекте-карточке
   const handleCheckbox = (e, chId) => {
-    const newArr = tasksList.map((item) => {
+    const newArr = saveBox.map((item) => {
       if (chId === item.id) {
         item.checked = e.target.checked;
         return item;
       }
       return item;
     });
-    setTasksList(newArr);
+
+    setSaveBox(newArr);
+    setTaskListsFiltered(newArr);
   };
   // Функция описывающая начало редактирования
   const handleEdit = (name, id) => {
     setEditCardId(id);
     setNewCardName(name);
-    console.log(editCardId);
-    console.log(newCardName);
   };
   // Функция записывающая новое имя карточки при редактированиии
   const handleChange = (e) => {
@@ -39,7 +40,7 @@ const TaskList = (props) => {
         return item;
       });
       setSaveBox(newArr);
-      setTasksList(newArr);
+      setTaskListsFiltered(newArr);
       setEditCardId(null);
     }
     if (e.key === 'Escape') {
@@ -48,19 +49,20 @@ const TaskList = (props) => {
   };
   // Функция вносящаяя измения даты в карточку, дял двух массивов
   const handleChangeData = (e, chId) => {
-    const newArr = tasksList.map((item) => {
+    const newArr = saveBox.map((item) => {
       if (chId === item.id) {
         item.date = new Date(e.target.value);
         return item;
       }
       return item;
     });
-    setTasksList(newArr);
+    setTaskListsFiltered(newArr);
+    setSaveBox(newArr);
   };
   // Функция удаляющщая карточку
   const handleClickDelete = (actId) => {
     const filteredNewArr = saveBox.filter(({ id }) => id !== actId);
-    setTasksList(filteredNewArr);
+    setTaskListsFiltered(filteredNewArr);
     setSaveBox(filteredNewArr);
   };
 

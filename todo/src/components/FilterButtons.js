@@ -1,35 +1,35 @@
 const FilterButtons = (props) => {
-  const { tasksList, setTasksList, saveBox } = props;
+  const { saveBox, setTaskListsFiltered } = props;
 
   // Функция выводит весь список
   const handleAllClick = () => {
-    setTasksList(saveBox);
+    setTaskListsFiltered(saveBox);
   };
   // Выводить только отмеченные задачи
   const handleDoneClick = () => {
-    setTasksList(saveBox.filter((item) => item.checked === true));
+    setTaskListsFiltered(saveBox.filter((item) => item.checked === true));
   };
   // Выводит только не отмеченные задачи
   const handleUndoneClick = () => {
-    setTasksList(saveBox.filter((item) => item.checked === false));
+    setTaskListsFiltered(saveBox.filter((item) => item.checked === false));
   };
   // Фильтрует по убыванию
   const handleSortUp = () => {
-    const newArr = [...tasksList].sort((a, b) => {
+    const newArr = [...saveBox].sort((a, b) => {
       if (a.date.getTime() < b.date.getTime()) return 1;
       if (a.date.getTime() > b.date.getTime()) return -1;
       return 0;
     });
-    setTasksList(newArr);
+    setTaskListsFiltered(newArr);
   };
   // Фильтрует по возрастанию
   const handleSortDown = () => {
-    const newArr = [...tasksList].sort((a, b) => {
+    const newArr = [...saveBox].sort((a, b) => {
       if (a.date.getTime() > b.date.getTime()) return 1;
       if (a.date.getTime() < b.date.getTime()) return -1;
       return 0;
     });
-    setTasksList(newArr);
+    setTaskListsFiltered(newArr);
   };
 
   return (

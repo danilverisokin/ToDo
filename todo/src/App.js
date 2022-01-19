@@ -1,49 +1,57 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import TaskInput from './components/TaskInput';
 import FilterButtons from './components/FilterButtons';
-import ListSlider from './components/ListSlider';
+import Pagination from './components/Pagination';
 import TaskList from './components/TaskList';
 
 function App(props) {
   const [tasksList, setTasksList] = useState([]);
-  const [saveBox, setSaveBox] = useState(tasksList);
-  const [editCardId, setEditCardId] = useState();
+  const [saveBox, setSaveBox] = useState([]);
+  const [taskListsFiltered, setTaskListsFiltered] = useState([]);
 
-  // useEffect(() => {
-  //   if (saveBox.length >= 5) {
-  //     setTaskListStorage([...taskListStorage, saveBox]);
-  //     console.log(taskListStorage);
-  //     setSaveBox([]);
-  //     setTasksList([]);
-  //   }
-  // return () => console.log('unmount');
-  // }, [saveBox]);
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    if (taskListsFiltered.length > 5) {
+      const newArr = [...taskListsFiltered].splice((page - 1) * 5, 5);
+      setTasksList(newArr);
+      return;
+    }
+
+    setTasksList(taskListsFiltered);
+    // return () => console.log('unmount');
+  }, [taskListsFiltered, page]);
 
   return (
     <div className="all_content">
       <div className="container">
-        <TaskInput setTasksList={setTasksList} tasksList={tasksList} setSaveBox={setSaveBox} />
-      </div>
-
-      <div className="container">
-        <FilterButtons tasksList={tasksList} setTasksList={setTasksList} saveBox={saveBox} />
-      </div>
-
-      <div className="container">
-        <TaskList
+        <TaskInput
+          setTaskListsFiltered={setTaskListsFiltered}
           saveBox={saveBox}
           setSaveBox={setSaveBox}
-          setTasksList={setTasksList}
-          tasksList={tasksList}
-          editCardId={editCardId}
-          setEditCardId={setEditCardId}
+          taskListsFiltered={taskListsFiltered}
         />
       </div>
 
       <div className="container">
-        <ListSlider setSaveBox={setSaveBox} setTasksList={setTasksList} />
+        <FilterButtons saveBox={saveBox} setTaskListsFiltered={setTaskListsFiltered} />
       </div>
+
+      <div className="container">
+        <TaskList
+          setTaskListsFiltered={setTaskListsFiltered}
+          saveBox={saveBox}
+          setSaveBox={setSaveBox}
+          tasksList={tasksList}
+        />
+      </div>
+
+      {taskListsFiltered.length > 5 && (
+        <div className="container">
+          <Pagination taskListsFiltered={taskListsFiltered} setPage={setPage} />
+        </div>
+      )}
     </div>
   );
 }
