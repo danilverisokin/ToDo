@@ -21,10 +21,8 @@ button {
   background-color: burlywood;
 
   border: 2px solid black;
-  border-top: none;
-  border-radius: 0 0 10px 10px;
-
-  margin: auto;
+  border-radius: 10px;
+  margin: 15px auto;
 }
 .container {
   padding-bottom: 20px;

@@ -1,9 +1,10 @@
 import { useState } from 'react';
 
-const FilterButtons = (props) => {
-  const { saveBox, setTaskListsFiltered } = props;
+const DoneFilter = (props) => {
+  const { saveBox, setTaskListsFiltered, taskListsFiltered } = props;
+
   const [buttonActiveDone, setButtonActiveDone] = useState();
-  const [buttonActiveAll, setButtonActiveAll] = useState(true);
+  const [buttonActiveAll, setButtonActiveAll] = useState();
   const [buttonActiveUndone, setButtonActiveUndone] = useState();
 
   const [buttonSortUpActive, setButtonSortUpActive] = useState();
@@ -33,7 +34,7 @@ const FilterButtons = (props) => {
   };
   // Фильтрует по убыванию
   const handleSortUp = () => {
-    const newArr = [...saveBox].sort((a, b) => {
+    const newArr = [...taskListsFiltered].sort((a, b) => {
       if (a.date.getTime() < b.date.getTime()) return 1;
       if (a.date.getTime() > b.date.getTime()) return -1;
       return 0;
@@ -44,7 +45,7 @@ const FilterButtons = (props) => {
   };
   // Фильтрует по возрастанию
   const handleSortDown = () => {
-    const newArr = [...saveBox].sort((a, b) => {
+    const newArr = [...taskListsFiltered].sort((a, b) => {
       if (a.date.getTime() > b.date.getTime()) return 1;
       if (a.date.getTime() < b.date.getTime()) return -1;
       return 0;
@@ -101,4 +102,4 @@ const FilterButtons = (props) => {
   );
 };
 
-export default FilterButtons;
+export default DoneFilter;

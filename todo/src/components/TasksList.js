@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const TaskList = (props) => {
+const TasksList = (props) => {
   const { tasksList, saveBox, setSaveBox, setTaskListsFiltered } = props;
   const [newCardName, setNewCardName] = useState();
   const [editCardId, setEditCardId] = useState();
@@ -114,4 +114,4 @@ const TaskList = (props) => {
   );
 };
 
-export default TaskList;
+export default TasksList;

@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 
 import TaskInput from './components/TaskInput';
-import FilterButtons from './components/FilterButtons';
 import Pagination from './components/Pagination';
-import TaskList from './components/TaskList';
+import TasksList from './components/TasksList';
+import DoneFilter from './components/DoneFilter';
 
 function App(props) {
   const [tasksList, setTasksList] = useState([]);
@@ -21,6 +21,7 @@ function App(props) {
 
     setTasksList(taskListsFiltered);
     // return () => console.log('unmount');
+    // }, [taskListsFiltered, page]);
   }, [taskListsFiltered, page]);
 
   return (
@@ -35,11 +36,15 @@ function App(props) {
       </div>
 
       <div className="container">
-        <FilterButtons saveBox={saveBox} setTaskListsFiltered={setTaskListsFiltered} />
+        <DoneFilter
+          saveBox={saveBox}
+          setTaskListsFiltered={setTaskListsFiltered}
+          taskListsFiltered={taskListsFiltered}
+        />
       </div>
 
       <div className="container">
-        <TaskList
+        <TasksList
           setTaskListsFiltered={setTaskListsFiltered}
           saveBox={saveBox}
           setSaveBox={setSaveBox}
