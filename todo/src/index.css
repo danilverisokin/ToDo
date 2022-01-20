@@ -30,7 +30,7 @@ button {
   padding-bottom: 20px;
 }
 
-/* SEARCHBAR */
+/* TaskInput */
 .search {
   text-align: center;
 }
@@ -51,7 +51,7 @@ button {
   font-size: 18px;
 }
 
-/* BUTTONBAR */
+/* FilterButton */
 .buttons {
   display: flex;
   justify-content: space-between;
@@ -72,6 +72,15 @@ button {
   max-width: 100%;
   border-radius: 10px;
   background-color: antiquewhite;
+  font-size: 18px;
+}
+.buttonsMainItemPushed {
+  padding: 5px;
+  margin: 5px;
+  min-width: 60px;
+  max-width: 100%;
+  border-radius: 10px;
+  background-color: lightblue;
   font-size: 18px;
 }
 .buttonsSort {
@@ -99,8 +108,13 @@ button {
   background-color: antiquewhite;
   border-radius: 10px;
 }
+.buttonsSortArrowsItemPushed {
+  margin-right: 5px;
+  background-color: lightblue;
+  border-radius: 10px;
+}
 
-/* TASKBAR */
+/* TaskList */
 .taskList {
   list-style-type: none;
   padding: 0;
@@ -147,7 +161,7 @@ button {
   background-color: antiquewhite;
 }
 
-/* NAVBAR */
+/* Pagination */
 .slider {
   width: 400px;
   margin: auto;

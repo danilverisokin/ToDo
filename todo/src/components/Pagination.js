@@ -28,7 +28,7 @@ const Pagination = (props) => {
       </button>
 
       {pages.map((item) => (
-        <button onClick={() => handleChangePage(item)} className="sliderItem">
+        <button key={item} onClick={() => handleChangePage(item)} className="sliderItem">
           {item}
         </button>
       ))}
