@@ -1,14 +1,19 @@
-import { useState } from 'react';
-
 const DoneFilter = (props) => {
-  const { saveBox, setTaskListsFiltered, taskListsFiltered } = props;
-
-  const [buttonActiveDone, setButtonActiveDone] = useState();
-  const [buttonActiveAll, setButtonActiveAll] = useState();
-  const [buttonActiveUndone, setButtonActiveUndone] = useState();
-
-  const [buttonSortUpActive, setButtonSortUpActive] = useState();
-  const [buttonSortDownActive, setButtonSortDownActive] = useState();
+  const {
+    saveBox,
+    setTaskListsFiltered,
+    taskListsFiltered,
+    buttonActiveAll,
+    buttonActiveDone,
+    buttonActiveUndone,
+    buttonSortUpActive,
+    buttonSortDownActive,
+    setButtonActiveDone,
+    setButtonActiveAll,
+    setButtonActiveUndone,
+    setButtonSortUpActive,
+    setButtonSortDownActive,
+  } = props;
 
   // Функция выводит весь список
   const handleAllClick = () => {

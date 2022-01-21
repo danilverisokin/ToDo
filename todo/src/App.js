@@ -12,6 +12,13 @@ function App(props) {
 
   const [page, setPage] = useState(1);
 
+  const [buttonActiveDone, setButtonActiveDone] = useState();
+  const [buttonActiveAll, setButtonActiveAll] = useState();
+  const [buttonActiveUndone, setButtonActiveUndone] = useState();
+
+  const [buttonSortUpActive, setButtonSortUpActive] = useState();
+  const [buttonSortDownActive, setButtonSortDownActive] = useState();
+
   useEffect(() => {
     if (taskListsFiltered.length > 5) {
       const newArr = [...taskListsFiltered].splice((page - 1) * 5, 5);
@@ -40,6 +47,16 @@ function App(props) {
           saveBox={saveBox}
           setTaskListsFiltered={setTaskListsFiltered}
           taskListsFiltered={taskListsFiltered}
+          buttonActiveDone={buttonActiveDone}
+          buttonActiveAll={buttonActiveAll}
+          buttonActiveUndone={buttonActiveUndone}
+          buttonSortUpActive={buttonSortUpActive}
+          buttonSortDownActive={buttonSortDownActive}
+          setButtonActiveDone={setButtonActiveDone}
+          setButtonActiveAll={setButtonActiveAll}
+          setButtonActiveUndone={setButtonActiveUndone}
+          setButtonSortUpActive={setButtonSortUpActive}
+          setButtonSortDownActive={setButtonSortDownActive}
         />
       </div>
 
@@ -49,6 +66,9 @@ function App(props) {
           saveBox={saveBox}
           setSaveBox={setSaveBox}
           tasksList={tasksList}
+          setButtonActiveDone={setButtonActiveDone}
+          setButtonActiveAll={setButtonActiveAll}
+          setButtonActiveUndone={setButtonActiveUndone}
         />
       </div>
 

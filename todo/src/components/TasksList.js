@@ -1,7 +1,15 @@
 import { useState } from 'react';
 
 const TasksList = (props) => {
-  const { tasksList, saveBox, setSaveBox, setTaskListsFiltered } = props;
+  const {
+    tasksList,
+    saveBox,
+    setSaveBox,
+    setTaskListsFiltered,
+    setButtonActiveDone,
+    setButtonActiveAll,
+    setButtonActiveUndone,
+  } = props;
   const [newCardName, setNewCardName] = useState();
   const [editCardId, setEditCardId] = useState();
 
@@ -42,6 +50,9 @@ const TasksList = (props) => {
       setSaveBox(newArr);
       setTaskListsFiltered(newArr);
       setEditCardId(null);
+      setButtonActiveDone(false);
+      setButtonActiveAll(true);
+      setButtonActiveUndone(false);
     }
     if (e.key === 'Escape') {
       setEditCardId(null);
@@ -64,6 +75,9 @@ const TasksList = (props) => {
     const filteredNewArr = saveBox.filter(({ id }) => id !== actId);
     setTaskListsFiltered(filteredNewArr);
     setSaveBox(filteredNewArr);
+    setButtonActiveDone(false);
+    setButtonActiveAll(true);
+    setButtonActiveUndone(false);
   };
 
   return (
