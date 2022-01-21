@@ -179,3 +179,12 @@ button {
 .sliderArrow:first-child {
   margin-left: 5px;
 }
+.buttonsPaginationActive {
+  width: 40px;
+  margin-right: 5px;
+
+  background-color: lightblue;
+  padding: 5px;
+
+  border-radius: 10px;
+}

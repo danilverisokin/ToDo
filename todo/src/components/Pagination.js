@@ -1,5 +1,5 @@
 const Pagination = (props) => {
-  const { taskListsFiltered, setPage } = props;
+  const { taskListsFiltered, setPage, page } = props;
 
   const getPagesAmount = (items) => {
     const pagesAmount = Math.ceil(items.length / 5);
@@ -28,7 +28,11 @@ const Pagination = (props) => {
       </button>
 
       {pages.map((item) => (
-        <button key={item} onClick={() => handleChangePage(item)} className="sliderItem">
+        <button
+          key={item}
+          onClick={() => handleChangePage(item)}
+          className={page === item ? 'buttonsPaginationActive' : 'sliderItem'}
+        >
           {item}
         </button>
       ))}

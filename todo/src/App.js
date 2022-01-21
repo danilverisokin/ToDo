@@ -74,7 +74,7 @@ function App(props) {
 
       {taskListsFiltered.length > 5 && (
         <div className="container">
-          <Pagination taskListsFiltered={taskListsFiltered} setPage={setPage} />
+          <Pagination taskListsFiltered={taskListsFiltered} setPage={setPage} page={page} />
         </div>
       )}
     </div>
