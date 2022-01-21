@@ -69,7 +69,7 @@ button {
   min-width: 60px;
   max-width: 100%;
   border-radius: 10px;
-  background-color: antiquewhite;
+  background-color: #faebd7;
   font-size: 18px;
 }
 .buttonsMainItemPushed {
@@ -78,7 +78,7 @@ button {
   min-width: 60px;
   max-width: 100%;
   border-radius: 10px;
-  background-color: rgb(192, 181, 167);
+  background-color: #93aba1;
   font-size: 18px;
 }
 .buttonsSort {
@@ -108,7 +108,7 @@ button {
 }
 .buttonsSortArrowsItemPushed {
   margin-right: 5px;
-  background-color: rgb(192, 181, 167);
+  background-color: #93aba1;
   border-radius: 10px;
 }
 
@@ -171,7 +171,7 @@ button {
   width: 40px;
   margin-right: 5px;
 
-  background-color: antiquewhite;
+  background-color: #faebd7;
   padding: 5px;
 
   border-radius: 10px;
@@ -183,7 +183,7 @@ button {
   width: 40px;
   margin-right: 5px;
 
-  background-color: rgb(192, 181, 167);
+  background-color: #93aba1;
   padding: 5px;
 
   border-radius: 10px;
