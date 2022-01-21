@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import TaskInput from './components/TaskInput';
 import Pagination from './components/Pagination';
 import TasksList from './components/TasksList';
-import DoneFilter from './components/DoneFilter';
+import Filter from './components/Filter';
 
 function App(props) {
   const [tasksList, setTasksList] = useState([]);
@@ -43,7 +43,7 @@ function App(props) {
       </div>
 
       <div className="container">
-        <DoneFilter
+        <Filter
           saveBox={saveBox}
           setTaskListsFiltered={setTaskListsFiltered}
           taskListsFiltered={taskListsFiltered}

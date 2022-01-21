@@ -1,4 +1,4 @@
-const DoneFilter = (props) => {
+const Filter = (props) => {
   const {
     saveBox,
     setTaskListsFiltered,
@@ -110,4 +110,4 @@ const DoneFilter = (props) => {
   );
 };
 
-export default DoneFilter;
+export default Filter;
