@@ -78,7 +78,7 @@ button {
   min-width: 60px;
   max-width: 100%;
   border-radius: 10px;
-  background-color: lightblue;
+  background-color: rgb(192, 181, 167);
   font-size: 18px;
 }
 .buttonsSort {
@@ -108,7 +108,7 @@ button {
 }
 .buttonsSortArrowsItemPushed {
   margin-right: 5px;
-  background-color: lightblue;
+  background-color: rgb(192, 181, 167);
   border-radius: 10px;
 }
 
@@ -183,7 +183,7 @@ button {
   width: 40px;
   margin-right: 5px;
 
-  background-color: lightblue;
+  background-color: rgb(192, 181, 167);
   padding: 5px;
 
   border-radius: 10px;

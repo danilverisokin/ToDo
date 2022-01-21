@@ -13,6 +13,7 @@ const DoneFilter = (props) => {
     setButtonActiveUndone,
     setButtonSortUpActive,
     setButtonSortDownActive,
+    setPage,
   } = props;
 
   // Функция выводит весь список
@@ -28,6 +29,7 @@ const DoneFilter = (props) => {
     setButtonActiveDone(true);
     setButtonActiveAll(false);
     setButtonActiveUndone(false);
+    setPage(1);
   };
 
   // Выводит только не отмеченные задачи
@@ -36,6 +38,7 @@ const DoneFilter = (props) => {
     setButtonActiveDone(false);
     setButtonActiveAll(false);
     setButtonActiveUndone(true);
+    setPage(1);
   };
   // Фильтрует по убыванию
   const handleSortUp = () => {

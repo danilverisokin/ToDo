@@ -33,11 +33,14 @@ const TasksList = (props) => {
   };
   // Функция записывающая новое имя карточки при редактированиии
   const handleChange = (e) => {
+    if (e.target.value === '') {
+      return null;
+    }
     setNewCardName(e.target.value);
   };
   // Функция срабатывающая по нажитии ENTER, сохраняяет измененое имя в оба массива
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
+  const handleKeyDown = (e, blur) => {
+    if (e.key === 'Enter' || blur) {
       const newArr = saveBox.map((item) => {
         if (item.id === editCardId) {
           return {
@@ -98,6 +101,7 @@ const TasksList = (props) => {
                 type="text"
                 value={newCardName}
                 onChange={handleChange}
+                onBlur={(e) => handleKeyDown(e, true)}
                 autoFocus
               />
             ) : (

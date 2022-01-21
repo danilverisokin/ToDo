@@ -13,7 +13,7 @@ function App(props) {
   const [page, setPage] = useState(1);
 
   const [buttonActiveDone, setButtonActiveDone] = useState();
-  const [buttonActiveAll, setButtonActiveAll] = useState();
+  const [buttonActiveAll, setButtonActiveAll] = useState(true);
   const [buttonActiveUndone, setButtonActiveUndone] = useState();
 
   const [buttonSortUpActive, setButtonSortUpActive] = useState();
@@ -57,6 +57,7 @@ function App(props) {
           setButtonActiveUndone={setButtonActiveUndone}
           setButtonSortUpActive={setButtonSortUpActive}
           setButtonSortDownActive={setButtonSortDownActive}
+          setPage={setPage}
         />
       </div>
 

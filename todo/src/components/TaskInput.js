@@ -7,6 +7,9 @@ const TaskInput = (props) => {
 
   // Функция отслеживающая изменения при вводе
   const handleChange = (e) => {
+    if (e.target.value === ' ') {
+      return null;
+    }
     setTaskName(e.target.value);
   };
   // Функция создающаяя массив с карточками
@@ -14,10 +17,10 @@ const TaskInput = (props) => {
     if (e.key === 'Enter' && taskName) {
       const id = uuid();
       setTaskListsFiltered([
-        ...taskListsFiltered,
         { id: id, name: taskName, checked: false, date: new Date() },
+        ...taskListsFiltered,
       ]);
-      setSaveBox([...saveBox, { id: id, name: taskName, checked: false, date: new Date() }]);
+      setSaveBox([{ id: id, name: taskName, checked: false, date: new Date() }, ...saveBox]);
       setTaskName('');
     }
   };
