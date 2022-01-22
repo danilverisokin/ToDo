@@ -14,11 +14,12 @@ function App(props) {
   const [saveBox, setSaveBox] = useState([]);
   const [taskListsFiltered, setTaskListsFiltered] = useState([]);
 
-  const [page, setPage] = useState(1);
+  const [newTaskName, setNewTaskName] = useState('');
 
   const [tasksFilter, setTasksFilter] = useState(FILTER_VARIANTS.FILTER_ALL);
+  const [sortByDate, setSortByDate] = useState(SORT_DATE_VARIANTS.SORT_DESC);
 
-  const [sortDateFilter, serSortDateFilter] = useState(SORT_DATE_VARIANTS.FILTER_DESC);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     if (taskListsFiltered.length > 5) {
@@ -33,25 +34,24 @@ function App(props) {
   }, [taskListsFiltered, page]);
 
   // TASKINPUT
-  const [taskName, setTaskName] = useState('');
 
   // Функция отслеживающая изменения при вводе
   const handleChangeInput = (e) => {
     if (e.target.value === ' ') {
       return null;
     }
-    setTaskName(e.target.value);
+    setNewTaskName(e.target.value);
   };
   // Функция создающаяя массив с карточками
   const handleKeyDownInput = (e) => {
-    if (e.key === 'Enter' && taskName) {
+    if (e.key === 'Enter' && newTaskName) {
       const id = uuid();
       setTaskListsFiltered([
-        { id: id, name: taskName, checked: false, date: new Date() },
+        { id: id, name: newTaskName, checked: false, date: new Date() },
         ...taskListsFiltered,
       ]);
-      setSaveBox([{ id: id, name: taskName, checked: false, date: new Date() }, ...saveBox]);
-      setTaskName('');
+      setSaveBox([{ id: id, name: newTaskName, checked: false, date: new Date() }, ...saveBox]);
+      setNewTaskName('');
     }
   };
   // FILTER
@@ -78,14 +78,14 @@ function App(props) {
 
   const handlleSortByDate = (variants) => {
     switch (variants) {
-      case SORT_DATE_VARIANTS.FILTER_ASC:
+      case SORT_DATE_VARIANTS.SORT_ASC:
         const newArrAsc = [...taskListsFiltered].sort((a, b) => {
           if (a.date.getTime() < b.date.getTime()) return 1;
           if (a.date.getTime() > b.date.getTime()) return -1;
           return 0;
         });
         setTaskListsFiltered(newArrAsc);
-        serSortDateFilter(SORT_DATE_VARIANTS.FILTER_ASC);
+        setSortByDate(SORT_DATE_VARIANTS.SORT_ASC);
         break;
       default:
         const newArrDesc = [...taskListsFiltered].sort((a, b) => {
@@ -94,7 +94,7 @@ function App(props) {
           return 0;
         });
         setTaskListsFiltered(newArrDesc);
-        serSortDateFilter(SORT_DATE_VARIANTS.FILTER_DESC);
+        setSortByDate(SORT_DATE_VARIANTS.SORT_DESC);
 
         break;
     }
@@ -179,12 +179,6 @@ function App(props) {
   const handleChangePage = (item) => {
     setPage(item);
   };
-  const handleLastPage = () => {
-    setPage(pages.length);
-  };
-  const handleFirstPage = () => {
-    setPage(1);
-  };
 
   const pages = getPagesAmount(taskListsFiltered);
 
@@ -194,13 +188,13 @@ function App(props) {
         <TaskInput
           handleChangeInput={handleChangeInput}
           handleKeyDownInput={handleKeyDownInput}
-          taskName={taskName}
+          newTaskName={newTaskName}
         />
       </div>
 
       <div className="container">
         <Filter
-          sortDateFilter={sortDateFilter}
+          sortByDate={sortByDate}
           tasksFilter={tasksFilter}
           handeFilter={handeFilter}
           handlleSortByDate={handlleSortByDate}
@@ -221,13 +215,7 @@ function App(props) {
 
       {taskListsFiltered.length > 5 && (
         <div className="container">
-          <Pagination
-            page={page}
-            pages={pages}
-            handleChangePage={handleChangePage}
-            handleLastPage={handleLastPage}
-            handleFirstPage={handleFirstPage}
-          />
+          <Pagination page={page} pages={pages} handleChangePage={handleChangePage} />
         </div>
       )}
     </div>

@@ -1,9 +1,9 @@
 const Pagination = (props) => {
-  const { page, pages, handleFirstPage, handleChangePage, handleLastPage } = props;
+  const { page, pages, handleChangePage } = props;
 
   return (
     <div className="slider">
-      <button onClick={handleFirstPage} className="sliderItem sliderArrow">
+      <button onClick={() => handleChangePage(1)} className="sliderItem sliderArrow">
         &lt;-
       </button>
 
@@ -17,7 +17,7 @@ const Pagination = (props) => {
         </button>
       ))}
 
-      <button onClick={handleLastPage} className="sliderItem sliderArrow">
+      <button onClick={() => handleChangePage(pages.length)} className="sliderItem sliderArrow">
         -&gt;
       </button>
     </div>

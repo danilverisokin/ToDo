@@ -1,7 +1,7 @@
-import { FILTER_VARIANTS } from '../constants';
+import { FILTER_VARIANTS, SORT_DATE_VARIANTS } from '../constants';
 
 const Filter = (props) => {
-  const { handlleSortByDate, tasksFilter, handeFilter, sortDateFilter } = props;
+  const { handlleSortByDate, tasksFilter, handeFilter, sortByDate } = props;
 
   return (
     <div className="buttons">
@@ -41,9 +41,9 @@ const Filter = (props) => {
 
         <div className="buttonsSortArrows">
           <button
-            onClick={() => handlleSortByDate(SORT_DATE_VARIANTS.FILTER_ASC)}
+            onClick={() => handlleSortByDate(SORT_DATE_VARIANTS.SORT_ASC)}
             className={
-              sortDateFilter === SORT_DATE_VARIANTS.FILTER_ASC
+              sortByDate === SORT_DATE_VARIANTS.SORT_ASC
                 ? 'buttonsSortArrowsItemPushed'
                 : 'buttonsSortArrowsItem'
             }
@@ -51,9 +51,9 @@ const Filter = (props) => {
             /\
           </button>
           <button
-            onClick={() => handlleSortByDate(SORT_DATE_VARIANTS.FILTER_DESC)}
+            onClick={() => handlleSortByDate(SORT_DATE_VARIANTS.SORT_DESC)}
             className={
-              buttonSortDownActive === SORT_DATE_VARIANTS.FILTER_DESC
+              sortByDate === SORT_DATE_VARIANTS.SORT_DESC
                 ? 'buttonsSortArrowsItemPushed'
                 : 'buttonsSortArrowsItem'
             }

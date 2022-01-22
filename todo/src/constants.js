@@ -5,6 +5,6 @@ export const FILTER_VARIANTS = {
 };
 
 export const SORT_DATE_VARIANTS = {
-  FILTER_ASC: 'asc',
-  FILTER_DESC: 'desc',
+  SORT_ASC: 'asc',
+  SORT_DESC: 'desc',
 };

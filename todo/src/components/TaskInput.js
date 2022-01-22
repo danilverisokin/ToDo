@@ -1,5 +1,5 @@
 const TaskInput = (props) => {
-  const { handleChangeInput, handleKeyDownInput, taskName } = props;
+  const { handleChangeInput, handleKeyDownInput, newTaskName } = props;
 
   return (
     <div className="search">
@@ -10,7 +10,7 @@ const TaskInput = (props) => {
           onChange={handleChangeInput}
           type="text"
           placeholder="I want to..."
-          value={taskName}
+          value={newTaskName}
         />
       </div>
     </div>
