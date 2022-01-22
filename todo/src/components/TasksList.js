@@ -1,87 +1,15 @@
-import { useState } from 'react';
-
 const TasksList = (props) => {
   const {
     tasksList,
-    saveBox,
-    setSaveBox,
-    setTaskListsFiltered,
-    setButtonActiveDone,
-    setButtonActiveAll,
-    setButtonActiveUndone,
+    handleCheckbox,
+    handleKeyDown,
+    editCardId,
+    newCardName,
+    handleChange,
+    handleEdit,
+    handleChangeData,
+    handleClickDelete,
   } = props;
-  const [newCardName, setNewCardName] = useState();
-  const [editCardId, setEditCardId] = useState();
-
-  // Функция для изменения состояния чекбокса в объекте-карточке
-  const handleCheckbox = (e, chId) => {
-    const newArr = saveBox.map((item) => {
-      if (chId === item.id) {
-        item.checked = e.target.checked;
-        return item;
-      }
-      return item;
-    });
-
-    setSaveBox(newArr);
-    setTaskListsFiltered(newArr);
-  };
-  // Функция описывающая начало редактирования
-  const handleEdit = (name, id) => {
-    setEditCardId(id);
-    setNewCardName(name);
-  };
-  // Функция записывающая новое имя карточки при редактированиии
-  const handleChange = (e) => {
-    if (e.target.value === '') {
-      return null;
-    }
-    setNewCardName(e.target.value);
-  };
-  // Функция срабатывающая по нажитии ENTER, сохраняяет измененое имя в оба массива
-  const handleKeyDown = (e, blur) => {
-    if (e.key === 'Enter') {
-      const newArr = saveBox.map((item) => {
-        if (item.id === editCardId) {
-          return {
-            ...item,
-            name: newCardName,
-          };
-        }
-        return item;
-      });
-      setSaveBox(newArr);
-      setTaskListsFiltered(newArr);
-      setEditCardId(null);
-      setButtonActiveDone(false);
-      setButtonActiveAll(true);
-      setButtonActiveUndone(false);
-    }
-    if (e.key === 'Escape' || blur) {
-      setEditCardId(null);
-    }
-  };
-  // Функция вносящаяя измения даты в карточку, дял двух массивов
-  const handleChangeData = (e, chId) => {
-    const newArr = saveBox.map((item) => {
-      if (chId === item.id) {
-        item.date = new Date(e.target.value);
-        return item;
-      }
-      return item;
-    });
-    setTaskListsFiltered(newArr);
-    setSaveBox(newArr);
-  };
-  // Функция удаляющщая карточку
-  const handleClickDelete = (actId) => {
-    const filteredNewArr = saveBox.filter(({ id }) => id !== actId);
-    setTaskListsFiltered(filteredNewArr);
-    setSaveBox(filteredNewArr);
-    setButtonActiveDone(false);
-    setButtonActiveAll(true);
-    setButtonActiveUndone(false);
-  };
 
   return (
     <ul className="taskList">

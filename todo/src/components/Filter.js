@@ -1,67 +1,17 @@
 const Filter = (props) => {
   const {
-    saveBox,
-    setTaskListsFiltered,
-    taskListsFiltered,
-    buttonActiveAll,
+    handleAllClick,
+    handleDoneClick,
+    handleUndoneClick,
+    handleSortUp,
+    handleSortDown,
+
     buttonActiveDone,
+    buttonActiveAll,
     buttonActiveUndone,
     buttonSortUpActive,
     buttonSortDownActive,
-    setButtonActiveDone,
-    setButtonActiveAll,
-    setButtonActiveUndone,
-    setButtonSortUpActive,
-    setButtonSortDownActive,
-    setPage,
   } = props;
-
-  // Функция выводит весь список
-  const handleAllClick = () => {
-    setTaskListsFiltered(saveBox);
-    setButtonActiveDone(false);
-    setButtonActiveAll(true);
-    setButtonActiveUndone(false);
-  };
-  // Выводить только отмеченные задачи
-  const handleDoneClick = () => {
-    setTaskListsFiltered(saveBox.filter((item) => item.checked === true));
-    setButtonActiveDone(true);
-    setButtonActiveAll(false);
-    setButtonActiveUndone(false);
-    setPage(1);
-  };
-
-  // Выводит только не отмеченные задачи
-  const handleUndoneClick = () => {
-    setTaskListsFiltered(saveBox.filter((item) => item.checked === false));
-    setButtonActiveDone(false);
-    setButtonActiveAll(false);
-    setButtonActiveUndone(true);
-    setPage(1);
-  };
-  // Фильтрует по убыванию
-  const handleSortUp = () => {
-    const newArr = [...taskListsFiltered].sort((a, b) => {
-      if (a.date.getTime() < b.date.getTime()) return 1;
-      if (a.date.getTime() > b.date.getTime()) return -1;
-      return 0;
-    });
-    setTaskListsFiltered(newArr);
-    setButtonSortUpActive(true);
-    setButtonSortDownActive(false);
-  };
-  // Фильтрует по возрастанию
-  const handleSortDown = () => {
-    const newArr = [...taskListsFiltered].sort((a, b) => {
-      if (a.date.getTime() > b.date.getTime()) return 1;
-      if (a.date.getTime() < b.date.getTime()) return -1;
-      return 0;
-    });
-    setTaskListsFiltered(newArr);
-    setButtonSortUpActive(false);
-    setButtonSortDownActive(true);
-  };
 
   return (
     <div className="buttons">

@@ -1,25 +1,5 @@
 const Pagination = (props) => {
-  const { taskListsFiltered, setPage, page } = props;
-
-  const getPagesAmount = (items) => {
-    const pagesAmount = Math.ceil(items.length / 5);
-
-    const pages = new Array(pagesAmount).fill('').map((_, idx) => idx + 1);
-
-    return pages;
-  };
-
-  const handleChangePage = (item) => {
-    setPage(item);
-  };
-  const handleLastPage = () => {
-    setPage(pages.length);
-  };
-  const handleFirstPage = () => {
-    setPage(1);
-  };
-
-  const pages = getPagesAmount(taskListsFiltered);
+  const { page, pages, handleFirstPage, handleChangePage, handleLastPage } = props;
 
   return (
     <div className="slider">
