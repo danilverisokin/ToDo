@@ -3,12 +3,11 @@ const TasksList = (props) => {
     tasksList,
     handleCheckbox,
     handleKeyDown,
-    editCardId,
-    newCardName,
     handleChange,
     handleEdit,
     handleChangeData,
     handleClickDelete,
+    editTask,
   } = props;
 
   return (
@@ -23,11 +22,11 @@ const TasksList = (props) => {
               type="checkbox"
             />
 
-            {editCardId === id ? (
+            {editTask?.id === id ? (
               <input
                 onKeyDown={handleKeyDown}
                 type="text"
-                value={newCardName}
+                value={editTask?.name}
                 onChange={handleChange}
                 onBlur={(e) => handleKeyDown(e, true)}
                 autoFocus

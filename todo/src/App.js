@@ -14,7 +14,11 @@ function App(props) {
   const [saveBox, setSaveBox] = useState([]);
   const [taskListsFiltered, setTaskListsFiltered] = useState([]);
 
+  // Add task
   const [newTaskName, setNewTaskName] = useState('');
+
+  //Edit card
+  const [editTask, setEditTask] = useState(null);
 
   const [tasksFilter, setTasksFilter] = useState(FILTER_VARIANTS.FILTER_ALL);
   const [sortByDate, setSortByDate] = useState(SORT_DATE_VARIANTS.SORT_DESC);
@@ -33,8 +37,6 @@ function App(props) {
     // }, [taskListsFiltered, page]);
   }, [taskListsFiltered, page]);
 
-  // TASKINPUT
-
   // Функция отслеживающая изменения при вводе
   const handleChangeInput = (e) => {
     if (e.target.value === ' ') {
@@ -42,6 +44,7 @@ function App(props) {
     }
     setNewTaskName(e.target.value);
   };
+
   // Функция создающаяя массив с карточками
   const handleKeyDownInput = (e) => {
     if (e.key === 'Enter' && newTaskName) {
@@ -54,10 +57,9 @@ function App(props) {
       setNewTaskName('');
     }
   };
+
   // FILTER
-  const [newCardName, setNewCardName] = useState();
-  const [editCardId, setEditCardId] = useState();
-  // Функция выводит весь список
+  // Функция фильтрует массив заданий
   const handeFilter = (variant) => {
     switch (variant) {
       case FILTER_VARIANTS.FILTER_DONE:
@@ -114,39 +116,45 @@ function App(props) {
     setSaveBox(newArr);
     setTaskListsFiltered(newArr);
   };
+
   // Функция описывающая начало редактирования
   const handleEdit = (name, id) => {
-    setEditCardId(id);
-    setNewCardName(name);
+    setEditTask({
+      name,
+      id,
+    });
   };
+
   // Функция записывающая новое имя карточки при редактированиии
   const handleChange = (e) => {
     if (e.target.value === '') {
       return null;
     }
-    setNewCardName(e.target.value);
+    setEditTask({ ...editTask, name: e.target.value });
   };
+
   // Функция срабатывающая по нажитии ENTER, сохраняяет измененое имя в оба массива
   const handleKeyDown = (e, blur) => {
     if (e.key === 'Enter') {
       const newArr = saveBox.map((item) => {
-        if (item.id === editCardId) {
+        if (item.id === editTask.id) {
           return {
             ...item,
-            name: newCardName,
+            name: editTask.name,
           };
         }
         return item;
       });
       setSaveBox(newArr);
       setTaskListsFiltered(newArr);
-      setEditCardId(null);
+      setEditTask(null);
       setTasksFilter(FILTER_VARIANTS.FILTER_ALL);
     }
     if (e.key === 'Escape' || blur) {
-      setEditCardId(null);
+      setEditTask(null);
     }
   };
+
   // Функция вносящаяя измения даты в карточку, дял двух массивов
   const handleChangeData = (e, chId) => {
     const newArr = saveBox.map((item) => {
@@ -159,6 +167,7 @@ function App(props) {
     setTaskListsFiltered(newArr);
     setSaveBox(newArr);
   };
+
   // Функция удаляющая карточку
   const handleClickDelete = (actId) => {
     const filteredNewArr = saveBox.filter(({ id }) => id !== actId);
@@ -210,6 +219,7 @@ function App(props) {
           handleKeyDown={handleKeyDown}
           handleChangeData={handleChangeData}
           handleClickDelete={handleClickDelete}
+          editTask={editTask}
         />
       </div>
 
