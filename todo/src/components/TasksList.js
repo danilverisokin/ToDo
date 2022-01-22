@@ -40,7 +40,7 @@ const TasksList = (props) => {
   };
   // Функция срабатывающая по нажитии ENTER, сохраняяет измененое имя в оба массива
   const handleKeyDown = (e, blur) => {
-    if (e.key === 'Enter' || blur) {
+    if (e.key === 'Enter') {
       const newArr = saveBox.map((item) => {
         if (item.id === editCardId) {
           return {
@@ -57,7 +57,7 @@ const TasksList = (props) => {
       setButtonActiveAll(true);
       setButtonActiveUndone(false);
     }
-    if (e.key === 'Escape') {
+    if (e.key === 'Escape' || blur) {
       setEditCardId(null);
     }
   };
