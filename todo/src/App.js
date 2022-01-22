@@ -6,6 +6,9 @@ import Pagination from './components/Pagination';
 import TasksList from './components/TasksList';
 import Filter from './components/Filter';
 
+import { FILTER_VARIANTS } from './constants';
+import { SORT_DATE_VARIANTS } from './constants';
+
 function App(props) {
   const [tasksList, setTasksList] = useState([]);
   const [saveBox, setSaveBox] = useState([]);
@@ -13,12 +16,9 @@ function App(props) {
 
   const [page, setPage] = useState(1);
 
-  const [buttonActiveDone, setButtonActiveDone] = useState();
-  const [buttonActiveAll, setButtonActiveAll] = useState(true);
-  const [buttonActiveUndone, setButtonActiveUndone] = useState();
+  const [tasksFilter, setTasksFilter] = useState(FILTER_VARIANTS.FILTER_ALL);
 
-  const [buttonSortUpActive, setButtonSortUpActive] = useState();
-  const [buttonSortDownActive, setButtonSortDownActive] = useState();
+  const [sortDateFilter, serSortDateFilter] = useState(SORT_DATE_VARIANTS.FILTER_DESC);
 
   useEffect(() => {
     if (taskListsFiltered.length > 5) {
@@ -58,50 +58,48 @@ function App(props) {
   const [newCardName, setNewCardName] = useState();
   const [editCardId, setEditCardId] = useState();
   // Функция выводит весь список
-  const handleAllClick = () => {
-    setTaskListsFiltered(saveBox);
-    setButtonActiveDone(false);
-    setButtonActiveAll(true);
-    setButtonActiveUndone(false);
-  };
-  // Выводить только отмеченные задачи
-  const handleDoneClick = () => {
-    setTaskListsFiltered(saveBox.filter((item) => item.checked === true));
-    setButtonActiveDone(true);
-    setButtonActiveAll(false);
-    setButtonActiveUndone(false);
+  const handeFilter = (variant) => {
+    switch (variant) {
+      case FILTER_VARIANTS.FILTER_DONE:
+        setTaskListsFiltered(saveBox.filter((item) => item.checked === true));
+        setTasksFilter(FILTER_VARIANTS.FILTER_DONE);
+        break;
+      case FILTER_VARIANTS.FILTER_UNDONE:
+        setTaskListsFiltered(saveBox.filter((item) => item.checked === false));
+        setTasksFilter(FILTER_VARIANTS.FILTER_UNDONE);
+        break;
+      default:
+        setTaskListsFiltered(saveBox);
+        setTasksFilter(FILTER_VARIANTS.FILTER_ALL);
+        break;
+    }
     setPage(1);
   };
-  // Выводит только не отмеченные задачи
-  const handleUndoneClick = () => {
-    setTaskListsFiltered(saveBox.filter((item) => item.checked === false));
-    setButtonActiveDone(false);
-    setButtonActiveAll(false);
-    setButtonActiveUndone(true);
-    setPage(1);
+
+  const handlleSortByDate = (variants) => {
+    switch (variants) {
+      case SORT_DATE_VARIANTS.FILTER_ASC:
+        const newArrAsc = [...taskListsFiltered].sort((a, b) => {
+          if (a.date.getTime() < b.date.getTime()) return 1;
+          if (a.date.getTime() > b.date.getTime()) return -1;
+          return 0;
+        });
+        setTaskListsFiltered(newArrAsc);
+        serSortDateFilter(SORT_DATE_VARIANTS.FILTER_ASC);
+        break;
+      default:
+        const newArrDesc = [...taskListsFiltered].sort((a, b) => {
+          if (a.date.getTime() > b.date.getTime()) return 1;
+          if (a.date.getTime() < b.date.getTime()) return -1;
+          return 0;
+        });
+        setTaskListsFiltered(newArrDesc);
+        serSortDateFilter(SORT_DATE_VARIANTS.FILTER_DESC);
+
+        break;
+    }
   };
-  // Фильтрует по убыванию
-  const handleSortUp = () => {
-    const newArr = [...taskListsFiltered].sort((a, b) => {
-      if (a.date.getTime() < b.date.getTime()) return 1;
-      if (a.date.getTime() > b.date.getTime()) return -1;
-      return 0;
-    });
-    setTaskListsFiltered(newArr);
-    setButtonSortUpActive(true);
-    setButtonSortDownActive(false);
-  };
-  // Фильтрует по возрастанию
-  const handleSortDown = () => {
-    const newArr = [...taskListsFiltered].sort((a, b) => {
-      if (a.date.getTime() > b.date.getTime()) return 1;
-      if (a.date.getTime() < b.date.getTime()) return -1;
-      return 0;
-    });
-    setTaskListsFiltered(newArr);
-    setButtonSortUpActive(false);
-    setButtonSortDownActive(true);
-  };
+
   // TASKLIST
   // Функция для изменения состояния чекбокса в объекте-карточке
   const handleCheckbox = (e, chId) => {
@@ -143,9 +141,7 @@ function App(props) {
       setSaveBox(newArr);
       setTaskListsFiltered(newArr);
       setEditCardId(null);
-      setButtonActiveDone(false);
-      setButtonActiveAll(true);
-      setButtonActiveUndone(false);
+      setTasksFilter(FILTER_VARIANTS.FILTER_ALL);
     }
     if (e.key === 'Escape' || blur) {
       setEditCardId(null);
@@ -163,14 +159,12 @@ function App(props) {
     setTaskListsFiltered(newArr);
     setSaveBox(newArr);
   };
-  // Функция удаляющщая карточку
+  // Функция удаляющая карточку
   const handleClickDelete = (actId) => {
     const filteredNewArr = saveBox.filter(({ id }) => id !== actId);
     setTaskListsFiltered(filteredNewArr);
     setSaveBox(filteredNewArr);
-    setButtonActiveDone(false);
-    setButtonActiveAll(true);
-    setButtonActiveUndone(false);
+    setTasksFilter(FILTER_VARIANTS.FILTER_ALL);
   };
 
   // PAGINATION
@@ -206,16 +200,10 @@ function App(props) {
 
       <div className="container">
         <Filter
-          handleAllClick={handleAllClick}
-          handleDoneClick={handleDoneClick}
-          handleUndoneClick={handleUndoneClick}
-          handleSortUp={handleSortUp}
-          handleSortDown={handleSortDown}
-          buttonActiveDone={buttonActiveDone}
-          buttonActiveAll={buttonActiveAll}
-          buttonActiveUndone={buttonActiveUndone}
-          buttonSortUpActive={buttonSortUpActive}
-          buttonSortDownActive={buttonSortDownActive}
+          sortDateFilter={sortDateFilter}
+          tasksFilter={tasksFilter}
+          handeFilter={handeFilter}
+          handlleSortByDate={handlleSortByDate}
         />
       </div>
 

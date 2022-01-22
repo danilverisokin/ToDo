@@ -1,36 +1,36 @@
-const Filter = (props) => {
-  const {
-    handleAllClick,
-    handleDoneClick,
-    handleUndoneClick,
-    handleSortUp,
-    handleSortDown,
+import { FILTER_VARIANTS } from '../constants';
 
-    buttonActiveDone,
-    buttonActiveAll,
-    buttonActiveUndone,
-    buttonSortUpActive,
-    buttonSortDownActive,
-  } = props;
+const Filter = (props) => {
+  const { handlleSortByDate, tasksFilter, handeFilter, sortDateFilter } = props;
 
   return (
     <div className="buttons">
       <div className="buttonsMain">
         <button
-          onClick={handleAllClick}
-          className={buttonActiveAll ? 'buttonsMainItemPushed' : 'buttonsMainItem'}
+          onClick={() => handeFilter(FILTER_VARIANTS.FILTER_ALL)}
+          className={
+            tasksFilter === FILTER_VARIANTS.FILTER_ALL ? 'buttonsMainItemPushed' : 'buttonsMainItem'
+          }
         >
           All
         </button>
         <button
-          onClick={handleDoneClick}
-          className={buttonActiveDone ? 'buttonsMainItemPushed' : 'buttonsMainItem'}
+          onClick={() => handeFilter(FILTER_VARIANTS.FILTER_DONE)}
+          className={
+            tasksFilter === FILTER_VARIANTS.FILTER_DONE
+              ? 'buttonsMainItemPushed'
+              : 'buttonsMainItem'
+          }
         >
           Done
         </button>
         <button
-          onClick={handleUndoneClick}
-          className={buttonActiveUndone ? 'buttonsMainItemPushed' : 'buttonsMainItem'}
+          onClick={() => handeFilter(FILTER_VARIANTS.FILTER_UNDONE)}
+          className={
+            tasksFilter === FILTER_VARIANTS.FILTER_UNDONE
+              ? 'buttonsMainItemPushed'
+              : 'buttonsMainItem'
+          }
         >
           Undone
         </button>
@@ -41,15 +41,21 @@ const Filter = (props) => {
 
         <div className="buttonsSortArrows">
           <button
-            onClick={handleSortUp}
-            className={buttonSortUpActive ? 'buttonsSortArrowsItemPushed' : 'buttonsSortArrowsItem'}
+            onClick={() => handlleSortByDate(SORT_DATE_VARIANTS.FILTER_ASC)}
+            className={
+              sortDateFilter === SORT_DATE_VARIANTS.FILTER_ASC
+                ? 'buttonsSortArrowsItemPushed'
+                : 'buttonsSortArrowsItem'
+            }
           >
             /\
           </button>
           <button
-            onClick={handleSortDown}
+            onClick={() => handlleSortByDate(SORT_DATE_VARIANTS.FILTER_DESC)}
             className={
-              buttonSortDownActive ? 'buttonsSortArrowsItemPushed' : 'buttonsSortArrowsItem'
+              buttonSortDownActive === SORT_DATE_VARIANTS.FILTER_DESC
+                ? 'buttonsSortArrowsItemPushed'
+                : 'buttonsSortArrowsItem'
             }
           >
             \/
