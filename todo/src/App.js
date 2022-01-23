@@ -9,6 +9,8 @@ import Filter from './components/Filter';
 import { FILTER_VARIANTS } from './constants';
 import { SORT_DATE_VARIANTS } from './constants';
 
+import getTaskListAPI from './api/getTaskList';
+
 function App(props) {
   const [tasksList, setTasksList] = useState([]);
   const [saveBox, setSaveBox] = useState([]);
@@ -24,6 +26,23 @@ function App(props) {
   const [sortByDate, setSortByDate] = useState(SORT_DATE_VARIANTS.SORT_DESC);
 
   const [page, setPage] = useState(1);
+
+  // API
+  const [taskListApi, setTaskListApi] = useState([]);
+
+  const getTaskList = async () => {
+    const result = await getTaskListAPI({ userId: 4 });
+    setTaskListApi(result);
+  };
+
+  console.log(taskListApi);
+
+  useEffect(() => {
+    console.log('mount');
+    getTaskList();
+  }, []);
+
+  // API
 
   useEffect(() => {
     if (taskListsFiltered.length > 5) {
