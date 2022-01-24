@@ -29,14 +29,12 @@ function App(props) {
 
   // API
   const [taskListApi, setTaskListApi] = useState([]);
-
   const handleGet = async () => {
     const result = await getTaskListAPI({ userId: 4 });
     setTaskListApi(result);
   };
 
   useEffect(() => {
-    handleGet();
     const arr = taskListApi.map((item) => {
       return {
         id: item.uuid,
@@ -252,6 +250,7 @@ function App(props) {
           <Pagination page={page} pages={pages} handleChangePage={handleChangePage} />
         </div>
       )}
+      <button onClick={handleGet}>get</button>
     </div>
   );
 }
