@@ -1,5 +1,5 @@
 export const FILTER_VARIANTS = {
-  FILTER_ALL: 'all',
+  FILTER_ALL: null,
   FILTER_DONE: 'done',
   FILTER_UNDONE: 'undone',
 };

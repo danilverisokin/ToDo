@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { v4 as uuid } from 'uuid';
 
 import TaskInput from './components/TaskInput';
 import Pagination from './components/Pagination';
@@ -10,6 +9,8 @@ import { FILTER_VARIANTS } from './constants';
 import { SORT_DATE_VARIANTS } from './constants';
 
 import getTaskListAPI from './api/getTaskList';
+import postTaskApi from './api/postTask';
+import deleteTaskApi from './api/deleteTask';
 
 function App(props) {
   const [tasksList, setTasksList] = useState([]);
@@ -29,36 +30,41 @@ function App(props) {
 
   // API
   const [taskListApi, setTaskListApi] = useState([]);
-  const handleGet = async () => {
-    const result = await getTaskListAPI({ userId: 4 });
-    setTaskListApi(result);
+  const [pageCount, setPageCount] = useState([]);
+  const [itemsCount, setItemsCount] = useState(0);
+
+  console.log(taskListApi);
+
+  const getTaskList = async (params) => {
+    const { tasks, count, itemsCount } = await getTaskListAPI(params);
+    setTaskListApi(tasks);
+    setTasksList(tasks);
+    setPageCount(count);
+    setItemsCount(itemsCount);
+  };
+
+  const postTask = async (params, body) => {
+    await postTaskApi(params, body);
+    await getTaskList(params);
+    // setPostTaskList(result);
+  };
+
+  const deleteTask = async (params) => {
+    await deleteTaskApi(params);
+    await getTaskList(params);
   };
 
   useEffect(() => {
-    const arr = taskListApi.map((item) => {
-      return {
-        id: item.uuid,
-        name: item.name,
-        checked: item.done,
-        date: new Date(item.createdAt),
-      };
-    });
-    setTaskListsFiltered(arr);
-  }, [taskListApi]);
-  // API
+    const params = {
+      userId: 4,
+      filterBy: tasksFilter,
+      order: sortByDate,
+      page: page,
+    };
+    getTaskList(params);
+  }, [tasksFilter, sortByDate, page]);
 
-  useEffect(() => {
-    if (taskListsFiltered.length > 5) {
-      const newArr = [...taskListsFiltered].splice((page - 1) * 5, 5);
-      setTasksList(newArr);
-      return;
-    }
-
-    setTasksList(taskListsFiltered);
-    // return () => console.log('unmount');
-    // }, [taskListsFiltered, page]);
-  }, [taskListsFiltered, page]);
-
+  // TASKINPUT
   // Функция отслеживающая изменения при вводе
   const handleChangeInput = (e) => {
     if (e.target.value === ' ') {
@@ -70,13 +76,27 @@ function App(props) {
   // Функция создающаяя массив с карточками
   const handleKeyDownInput = (e) => {
     if (e.key === 'Enter' && newTaskName) {
-      const id = uuid();
-      setTaskListsFiltered([
-        { id: id, name: newTaskName, checked: false, date: new Date() },
-        ...taskListsFiltered,
-      ]);
-      setSaveBox([{ id: id, name: newTaskName, checked: false, date: new Date() }, ...saveBox]);
       setNewTaskName('');
+      const initialState = {
+        filterBy: FILTER_VARIANTS.FILTER_ALL,
+        order: SORT_DATE_VARIANTS.SORT_DESC,
+        page: 1,
+      };
+      setTasksFilter(initialState.filterBy);
+      setSortByDate(initialState.order);
+      setPage(initialState.page);
+      const params = {
+        userId: 4,
+        filterBy: initialState.filterBy,
+        order: initialState.order,
+        page: initialState.page,
+      };
+      const body = {
+        name: newTaskName,
+        done: false,
+        createdAt: new Date(),
+      };
+      postTask(params, body);
     }
   };
 
@@ -192,26 +212,26 @@ function App(props) {
 
   // Функция удаляющая карточку
   const handleClickDelete = (actId) => {
-    const filteredNewArr = saveBox.filter(({ id }) => id !== actId);
-    setTaskListsFiltered(filteredNewArr);
-    setSaveBox(filteredNewArr);
+    const initialState = {
+      filterBy: FILTER_VARIANTS.FILTER_ALL,
+      order: SORT_DATE_VARIANTS.SORT_DESC,
+      page: 1,
+    };
+    const params = {
+      userId: 4,
+      id: actId,
+      ilterBy: initialState.filterBy,
+      order: initialState.order,
+      page: initialState.page,
+    };
+    deleteTask(params);
     setTasksFilter(FILTER_VARIANTS.FILTER_ALL);
   };
 
   // PAGINATION
-  const getPagesAmount = (items) => {
-    const pagesAmount = Math.ceil(items.length / 5);
-
-    const pages = new Array(pagesAmount).fill('').map((_, idx) => idx + 1);
-
-    return pages;
-  };
-
   const handleChangePage = (item) => {
     setPage(item);
   };
-
-  const pages = getPagesAmount(taskListsFiltered);
 
   return (
     <div className="all_content">
@@ -245,12 +265,11 @@ function App(props) {
         />
       </div>
 
-      {taskListsFiltered.length > 5 && (
+      {itemsCount > 5 && (
         <div className="container">
-          <Pagination page={page} pages={pages} handleChangePage={handleChangePage} />
+          <Pagination page={page} pages={pageCount} handleChangePage={handleChangePage} />
         </div>
       )}
-      <button onClick={handleGet}>get</button>
     </div>
   );
 }
