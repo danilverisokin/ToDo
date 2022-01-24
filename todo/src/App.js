@@ -30,18 +30,23 @@ function App(props) {
   // API
   const [taskListApi, setTaskListApi] = useState([]);
 
-  const getTaskList = async () => {
+  const handleGet = async () => {
     const result = await getTaskListAPI({ userId: 4 });
     setTaskListApi(result);
   };
 
-  console.log(taskListApi);
-
   useEffect(() => {
-    console.log('mount');
-    getTaskList();
-  }, []);
-
+    handleGet();
+    const arr = taskListApi.map((item) => {
+      return {
+        id: item.uuid,
+        name: item.name,
+        checked: item.done,
+        date: new Date(item.createdAt),
+      };
+    });
+    setTaskListsFiltered(arr);
+  }, [taskListApi]);
   // API
 
   useEffect(() => {
