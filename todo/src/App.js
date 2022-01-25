@@ -16,8 +16,6 @@ import editTaskApi from './api/editTask';
 
 function App(props) {
   const [tasksList, setTasksList] = useState([]);
-  const [saveBox, setSaveBox] = useState([]);
-  const [taskListsFiltered, setTaskListsFiltered] = useState([]);
 
   // Add task
   const [newTaskName, setNewTaskName] = useState('');
@@ -31,13 +29,11 @@ function App(props) {
   const [page, setPage] = useState(1);
 
   // API
-  const [taskListApi, setTaskListApi] = useState([]);
   const [pageCount, setPageCount] = useState([]);
   const [itemsCount, setItemsCount] = useState(0);
 
   const getTaskList = async (params) => {
     const { tasks, count, itemsCount } = await getTaskListAPI(params);
-    setTaskListApi(tasks);
     setTasksList(tasks);
     setPageCount(count);
     setItemsCount(itemsCount);
@@ -46,7 +42,6 @@ function App(props) {
   const postTask = async (params, body) => {
     await postTaskApi(params, body);
     await getTaskList(params);
-    // setPostTaskList(result);
   };
 
   const deleteTask = async (params) => {
@@ -113,41 +108,24 @@ function App(props) {
   const handeFilter = (variant) => {
     switch (variant) {
       case FILTER_VARIANTS.FILTER_DONE:
-        setTaskListsFiltered(saveBox.filter((item) => item.checked === true));
         setTasksFilter(FILTER_VARIANTS.FILTER_DONE);
         break;
       case FILTER_VARIANTS.FILTER_UNDONE:
-        setTaskListsFiltered(saveBox.filter((item) => item.checked === false));
         setTasksFilter(FILTER_VARIANTS.FILTER_UNDONE);
         break;
       default:
-        setTaskListsFiltered(saveBox);
         setTasksFilter(FILTER_VARIANTS.FILTER_ALL);
         break;
     }
-    setPage(1);
   };
 
   const handlleSortByDate = (variants) => {
     switch (variants) {
       case SORT_DATE_VARIANTS.SORT_ASC:
-        const newArrAsc = [...taskListsFiltered].sort((a, b) => {
-          if (a.date.getTime() < b.date.getTime()) return 1;
-          if (a.date.getTime() > b.date.getTime()) return -1;
-          return 0;
-        });
-        setTaskListsFiltered(newArrAsc);
         setSortByDate(SORT_DATE_VARIANTS.SORT_ASC);
         break;
       default:
-        const newArrDesc = [...taskListsFiltered].sort((a, b) => {
-          if (a.date.getTime() > b.date.getTime()) return 1;
-          if (a.date.getTime() < b.date.getTime()) return -1;
-          return 0;
-        });
-        setTaskListsFiltered(newArrDesc);
         setSortByDate(SORT_DATE_VARIANTS.SORT_DESC);
-
         break;
     }
   };
@@ -173,17 +151,6 @@ function App(props) {
       createAt: new Date(),
     };
     checkTask(params, body);
-
-    // const newArr = saveBox.map((item) => {
-    //   if (chId === item.id) {
-    //     item.checked = e.target.checked;
-    //     return item;
-    //   }
-    //   return item;
-    // });
-
-    // setSaveBox(newArr);
-    // setTaskListsFiltered(newArr);
   };
 
   // Функция описывающая начало редактирования
@@ -223,19 +190,6 @@ function App(props) {
     if (e.key === 'Escape' || blur) {
       setEditTask(null);
     }
-  };
-
-  // Функция вносящаяя измения даты в карточку, дял двух массивов
-  const handleChangeData = (e, chId) => {
-    const newArr = saveBox.map((item) => {
-      if (chId === item.id) {
-        item.date = new Date(e.target.value);
-        return item;
-      }
-      return item;
-    });
-    setTaskListsFiltered(newArr);
-    setSaveBox(newArr);
   };
 
   // Функция удаляющая карточку
@@ -287,7 +241,6 @@ function App(props) {
           handleEdit={handleEdit}
           handleChange={handleChange}
           handleKeyDown={handleKeyDown}
-          handleChangeData={handleChangeData}
           handleClickDelete={handleClickDelete}
           editTask={editTask}
         />
