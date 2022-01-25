@@ -25,7 +25,7 @@ const getTaskListAPI = async (params) => {
 
     return { tasks, count, itemsCount: data?.count };
   } catch (err) {
-    console.log(err);
+    alert(err);
   }
 };
 

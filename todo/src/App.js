@@ -170,6 +170,7 @@ function App(props) {
       page: initialState.page,
     };
     const body = {
+      name: name,
       done: e.target.checked,
       createAt: new Date(),
     };

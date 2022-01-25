@@ -5,7 +5,7 @@ const doneTaskApi = async (params, body) => {
     const { userId, id } = params;
     await axios.patch(`https://todo-api-learning.herokuapp.com/v1/task/${userId}/${id}`, body);
   } catch (err) {
-    console.log(err);
+    alert(err);
   }
 };
 

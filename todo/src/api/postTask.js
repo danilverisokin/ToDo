@@ -5,7 +5,7 @@ const postTaskApi = async (params, body) => {
     const { userId } = params;
     await axios.post(`https://todo-api-learning.herokuapp.com/v1/task/${userId}`, body);
   } catch (err) {
-    console.log(err);
+    alert(err);
   }
 };
 
