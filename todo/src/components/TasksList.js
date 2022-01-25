@@ -16,7 +16,7 @@ const TasksList = (props) => {
         <li key={id} className="taskListItem">
           <div className="taskListItemHalf">
             <input
-              onChange={(e) => handleCheckbox(e, id)}
+              onChange={(e) => handleCheckbox(e, id, name)}
               checked={checked}
               className="taskListItemElem taskListItemCheckbox"
               type="checkbox"

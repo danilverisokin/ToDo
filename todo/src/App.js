@@ -11,6 +11,8 @@ import { SORT_DATE_VARIANTS } from './constants';
 import getTaskListAPI from './api/getTaskList';
 import postTaskApi from './api/postTask';
 import deleteTaskApi from './api/deleteTask';
+import doneTaskApi from './api/doneTask';
+import editTaskApi from './api/editTask';
 
 function App(props) {
   const [tasksList, setTasksList] = useState([]);
@@ -51,6 +53,14 @@ function App(props) {
 
   const deleteTask = async (params) => {
     await deleteTaskApi(params);
+    await getTaskList(params);
+  };
+  const checkTask = async (params, body) => {
+    await doneTaskApi(params, body);
+    await getTaskList(params);
+  };
+  const editTaskFunc = async (params, body) => {
+    await editTaskApi(params, body);
     await getTaskList(params);
   };
 
@@ -146,17 +156,35 @@ function App(props) {
 
   // TASKLIST
   // Функция для изменения состояния чекбокса в объекте-карточке
-  const handleCheckbox = (e, chId) => {
-    const newArr = saveBox.map((item) => {
-      if (chId === item.id) {
-        item.checked = e.target.checked;
-        return item;
-      }
-      return item;
-    });
+  const handleCheckbox = (e, chId, name) => {
+    const initialState = {
+      filterBy: FILTER_VARIANTS.FILTER_ALL,
+      order: SORT_DATE_VARIANTS.SORT_DESC,
+      page: 1,
+    };
+    const params = {
+      userId: 4,
+      id: chId,
+      filterBy: initialState.filterBy,
+      order: initialState.order,
+      page: initialState.page,
+    };
+    const body = {
+      done: e.target.checked,
+      createAt: new Date(),
+    };
+    checkTask(params, body);
 
-    setSaveBox(newArr);
-    setTaskListsFiltered(newArr);
+    // const newArr = saveBox.map((item) => {
+    //   if (chId === item.id) {
+    //     item.checked = e.target.checked;
+    //     return item;
+    //   }
+    //   return item;
+    // });
+
+    // setSaveBox(newArr);
+    // setTaskListsFiltered(newArr);
   };
 
   // Функция описывающая начало редактирования
@@ -169,32 +197,51 @@ function App(props) {
 
   // Функция записывающая новое имя карточки при редактированиии
   const handleChange = (e) => {
-    if (e.target.value === '') {
-      return null;
-    }
     setEditTask({ ...editTask, name: e.target.value });
   };
 
   // Функция срабатывающая по нажитии ENTER, сохраняяет измененое имя в оба массива
   const handleKeyDown = (e, blur) => {
     if (e.key === 'Enter') {
-      const newArr = saveBox.map((item) => {
-        if (item.id === editTask.id) {
-          return {
-            ...item,
-            name: editTask.name,
-          };
-        }
-        return item;
-      });
-      setSaveBox(newArr);
-      setTaskListsFiltered(newArr);
+      const initialState = {
+        filterBy: FILTER_VARIANTS.FILTER_ALL,
+        order: SORT_DATE_VARIANTS.SORT_DESC,
+        page: 1,
+      };
+      const params = {
+        userId: 4,
+        id: editTask.id,
+        filterBy: initialState.filterBy,
+        order: initialState.order,
+        page: initialState.page,
+      };
+      const body = {
+        name: editTask.name,
+      };
+      editTaskFunc(params, body);
       setEditTask(null);
-      setTasksFilter(FILTER_VARIANTS.FILTER_ALL);
     }
     if (e.key === 'Escape' || blur) {
       setEditTask(null);
     }
+    // if (e.key === 'Enter') {
+    //   const newArr = saveBox.map((item) => {
+    //     if (item.id === editTask.id) {
+    //       return {
+    //         ...item,
+    //         name: editTask.name,
+    //       };
+    //     }
+    //     return item;
+    //   });
+    //   setSaveBox(newArr);
+    //   setTaskListsFiltered(newArr);
+    //   setEditTask(null);
+    //   setTasksFilter(FILTER_VARIANTS.FILTER_ALL);
+    // }
+    // if (e.key === 'Escape' || blur) {
+    //   setEditTask(null);
+    // }
   };
 
   // Функция вносящаяя измения даты в карточку, дял двух массивов
@@ -220,7 +267,7 @@ function App(props) {
     const params = {
       userId: 4,
       id: actId,
-      ilterBy: initialState.filterBy,
+      filterBy: initialState.filterBy,
       order: initialState.order,
       page: initialState.page,
     };
