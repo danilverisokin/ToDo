@@ -35,8 +35,6 @@ function App(props) {
   const [pageCount, setPageCount] = useState([]);
   const [itemsCount, setItemsCount] = useState(0);
 
-  console.log(taskListApi);
-
   const getTaskList = async (params) => {
     const { tasks, count, itemsCount } = await getTaskListAPI(params);
     setTaskListApi(tasks);
@@ -225,24 +223,6 @@ function App(props) {
     if (e.key === 'Escape' || blur) {
       setEditTask(null);
     }
-    // if (e.key === 'Enter') {
-    //   const newArr = saveBox.map((item) => {
-    //     if (item.id === editTask.id) {
-    //       return {
-    //         ...item,
-    //         name: editTask.name,
-    //       };
-    //     }
-    //     return item;
-    //   });
-    //   setSaveBox(newArr);
-    //   setTaskListsFiltered(newArr);
-    //   setEditTask(null);
-    //   setTasksFilter(FILTER_VARIANTS.FILTER_ALL);
-    // }
-    // if (e.key === 'Escape' || blur) {
-    //   setEditTask(null);
-    // }
   };
 
   // Функция вносящаяя измения даты в карточку, дял двух массивов
