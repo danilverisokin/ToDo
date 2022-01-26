@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getPagesAmount } from '../utils';
+// import { getPagesAmount } from '../utils';
 
 const getTaskListAPI = async (params) => {
   try {
@@ -21,9 +21,9 @@ const getTaskListAPI = async (params) => {
           date: new Date(item.createdAt),
         };
       }) || [];
-    const count = getPagesAmount(data?.count);
 
-    return { tasks, count, itemsCount: data?.count };
+    // const count = getPagesAmount(data?.count); // pages
+    return { tasks, itemsCount: data?.count };
   } catch (err) {
     alert(err);
   }
