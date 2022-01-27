@@ -15,6 +15,8 @@ import deleteTaskApi from './api/deleteTask';
 import doneTaskApi from './api/doneTask';
 import editTaskApi from './api/editTask';
 
+import { getPagesAmount } from './utils';
+
 function App(props) {
   const [tasksList, setTasksList] = useState([]);
   // // Add task
@@ -56,16 +58,33 @@ function App(props) {
   };
 
   const deleteTask = async (params) => {
-    await deleteTaskApi(params);
-    await getTaskList(params);
+    const res = await deleteTaskApi(params);
+    if (res) {
+      const isPreviousPage =
+        currentPage > getPagesAmount(itemsCount - 1) ? currentPage - 1 || 1 : currentPage;
+
+      const newParams = {
+        ...params,
+        page: isPreviousPage,
+      };
+
+      await getTaskList(newParams);
+      setCurrentPage(isPreviousPage);
+    }
   };
+
   const checkTask = async (params, body) => {
-    await doneTaskApi(params, body);
-    await getTaskList(params);
+    const res = await doneTaskApi(params, body);
+    if (res) {
+      await getTaskList(params);
+    }
   };
+
   const editTaskFunc = async (params, body) => {
-    await editTaskApi(params, body);
-    await getTaskList(params);
+    const res = await editTaskApi(params, body);
+    if (res) {
+      await getTaskList(params);
+    }
   };
 
   useEffect(() => {
@@ -121,9 +140,11 @@ function App(props) {
     switch (variant) {
       case FILTER_VARIANTS.FILTER_DONE:
         setTasksFilter(FILTER_VARIANTS.FILTER_DONE);
+        setCurrentPage(1);
         break;
       case FILTER_VARIANTS.FILTER_UNDONE:
         setTasksFilter(FILTER_VARIANTS.FILTER_UNDONE);
+        setCurrentPage(1);
         break;
       default:
         setTasksFilter(FILTER_VARIANTS.FILTER_ALL);
@@ -135,9 +156,11 @@ function App(props) {
     switch (variants) {
       case SORT_DATE_VARIANTS.SORT_ASC:
         setSortByDate(SORT_DATE_VARIANTS.SORT_ASC);
+        setCurrentPage(1);
         break;
       default:
         setSortByDate(SORT_DATE_VARIANTS.SORT_DESC);
+        setCurrentPage(1);
         break;
     }
   };
@@ -148,15 +171,14 @@ function App(props) {
     const params = {
       userId: 4,
       id: chId,
-      filterBy: FILTER_VARIANTS.FILTER_ALL,
-      order: SORT_DATE_VARIANTS.SORT_DESC,
-      page: 1,
+      filterBy: tasksFilter,
+      order: sortByDate,
+      page: currentPage,
     };
     const body = {
       done: e.target.checked,
     };
     checkTask(params, body);
-    setCurrentPage(1);
   };
 
   // Функция описывающая начало редактирования
@@ -178,16 +200,15 @@ function App(props) {
       const params = {
         userId: 4,
         id: editTask.id,
-        filterBy: FILTER_VARIANTS.FILTER_ALL,
-        order: SORT_DATE_VARIANTS.SORT_DESC,
-        page: 1,
+        filterBy: tasksFilter,
+        order: sortByDate,
+        page: currentPage,
       };
       const body = {
         name: editTask.name,
       };
       editTaskFunc(params, body);
       setEditTask(null);
-      setCurrentPage(1);
     }
     if (e.key === 'Escape' || blur) {
       setEditTask(null);
@@ -200,13 +221,10 @@ function App(props) {
     const params = {
       userId: 4,
       id: actId,
-      filterBy: FILTER_VARIANTS.FILTER_ALL,
-      order: SORT_DATE_VARIANTS.SORT_DESC,
-      page: 1,
+      filterBy: tasksFilter,
+      order: sortByDate,
     };
     deleteTask(params);
-    setTasksFilter(FILTER_VARIANTS.FILTER_ALL);
-    setCurrentPage(1);
   };
 
   // PAGINATION
