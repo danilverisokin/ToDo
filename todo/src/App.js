@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Pagination } from 'antd';
+import { Pagination, message } from 'antd';
+import axios from 'axios';
 
 import TaskInputBar from './components/TaskInputBar';
 import TaskFilterBar from './components/TaskFilterBar';
 import TasksListBar from './components/TasksListBar';
-// import TaskPaginationBar from './components/TaskPaginationBar';
 
 import { FILTER_VARIANTS } from './constants';
 import { SORT_DATE_VARIANTS } from './constants';
@@ -17,28 +17,40 @@ import editTaskApi from './api/editTask';
 
 function App(props) {
   const [tasksList, setTasksList] = useState([]);
-
   // // Add task
   const [newTaskName, setNewTaskName] = useState('');
-
   // //Edit card
   const [editTask, setEditTask] = useState(null);
-
   const [tasksFilter, setTasksFilter] = useState(FILTER_VARIANTS.FILTER_ALL);
   const [sortByDate, setSortByDate] = useState(SORT_DATE_VARIANTS.SORT_DESC);
 
-  const [page, setPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
   // API
   // const [pageCount, setPageCount] = useState([]);
   const [itemsCount, setItemsCount] = useState(0);
 
+  //ЛОВЕЦ ОШИБОК
+
+  axios.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      message.error(`${error.response.data.message}`, 2);
+    }
+  );
+
+  //ЗАПРОС НА ПОЛУЧЕНИЕ ВСЕХ ТАСОК
+
   const getTaskList = async (params) => {
     const { tasks, itemsCount } = await getTaskListAPI(params);
     setTasksList(tasks); // массив тасок
-    // setPageCount(count); // массив страниц
+    // setCurrentPage(currentPage);
     setItemsCount(itemsCount); // число тасок
   };
+
+  //ЗАПРОС НА ПОЛУЧЕНИЕ ВСЕХ ТАСОК
 
   const postTask = async (params, body) => {
     await postTaskApi(params, body);
@@ -63,10 +75,10 @@ function App(props) {
       userId: 4,
       filterBy: tasksFilter,
       order: sortByDate,
-      page: page,
+      page: currentPage,
     };
     getTaskList(params);
-  }, [tasksFilter, sortByDate, page]);
+  }, [tasksFilter, sortByDate, currentPage]);
 
   // TASKINPUT
   // Функция отслеживающая изменения при вводе
@@ -88,12 +100,12 @@ function App(props) {
       };
       setTasksFilter(initialState.filterBy);
       setSortByDate(initialState.order);
-      setPage(initialState.page);
+      setCurrentPage(initialState.currentPage);
       const params = {
         userId: 4,
         filterBy: initialState.filterBy,
         order: initialState.order,
-        page: initialState.page,
+        page: initialState.currentPage,
       };
       const body = {
         name: newTaskName,
@@ -102,6 +114,7 @@ function App(props) {
       };
 
       postTask(params, body);
+      setCurrentPage(1);
     }
   };
 
@@ -135,17 +148,12 @@ function App(props) {
   // TASKLIST
   // Функция для изменения состояния чекбокса в объекте-карточке
   const handleCheckbox = (e, chId, name) => {
-    const initialState = {
-      filterBy: FILTER_VARIANTS.FILTER_ALL,
-      order: SORT_DATE_VARIANTS.SORT_DESC,
-      page: 1,
-    };
     const params = {
       userId: 4,
       id: chId,
-      filterBy: initialState.filterBy,
-      order: initialState.order,
-      page: initialState.page,
+      filterBy: FILTER_VARIANTS.FILTER_ALL,
+      order: SORT_DATE_VARIANTS.SORT_DESC,
+      page: 1,
     };
     const body = {
       name: name,
@@ -153,6 +161,7 @@ function App(props) {
       createAt: new Date(),
     };
     checkTask(params, body);
+    setCurrentPage(1);
   };
 
   // Функция описывающая начало редактирования
@@ -171,23 +180,19 @@ function App(props) {
   // Функция срабатывающая по нажитии ENTER, сохраняяет измененое имя в оба массива
   const handleKeyDown = (e, blur) => {
     if (e.key === 'Enter') {
-      const initialState = {
-        filterBy: FILTER_VARIANTS.FILTER_ALL,
-        order: SORT_DATE_VARIANTS.SORT_DESC,
-        page: 1,
-      };
       const params = {
         userId: 4,
         id: editTask.id,
-        filterBy: initialState.filterBy,
-        order: initialState.order,
-        page: initialState.page,
+        filterBy: FILTER_VARIANTS.FILTER_ALL,
+        order: SORT_DATE_VARIANTS.SORT_DESC,
+        page: 1,
       };
       const body = {
         name: editTask.name,
       };
       editTaskFunc(params, body);
       setEditTask(null);
+      setCurrentPage(1);
     }
     if (e.key === 'Escape' || blur) {
       setEditTask(null);
@@ -196,25 +201,21 @@ function App(props) {
 
   // Функция удаляющая карточку
   const handleClickDelete = (actId) => {
-    const initialState = {
+    const params = {
+      userId: 4,
+      id: actId,
       filterBy: FILTER_VARIANTS.FILTER_ALL,
       order: SORT_DATE_VARIANTS.SORT_DESC,
       page: 1,
     };
-    const params = {
-      userId: 4,
-      id: actId,
-      filterBy: initialState.filterBy,
-      order: initialState.order,
-      page: initialState.page,
-    };
     deleteTask(params);
     setTasksFilter(FILTER_VARIANTS.FILTER_ALL);
+    setCurrentPage(1);
   };
 
   // PAGINATION
-  const handleChangePage = (page) => {
-    setPage(page);
+  const handleChangePage = (currentPage) => {
+    setCurrentPage(currentPage);
   };
 
   return (
@@ -245,7 +246,7 @@ function App(props) {
           <Pagination
             className="pagination"
             defaultCurrent={1}
-            current={page}
+            current={currentPage}
             total={itemsCount}
             onChange={handleChangePage}
             defaultPageSize={5}
