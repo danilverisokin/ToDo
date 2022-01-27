@@ -6,7 +6,6 @@ const TaskslistBar = ({
   handleKeyDown,
   handleChange,
   handleEdit,
-  handleChangeData,
   handleClickDelete,
   editTask,
 }) => {
