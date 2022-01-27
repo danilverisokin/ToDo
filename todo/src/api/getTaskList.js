@@ -17,11 +17,10 @@ const getTaskListAPI = async (params) => {
         id: item.uuid,
         name: item.name,
         checked: item.done,
-        date: new Date(item.createdAt),
+        date: item.createdAt,
       };
     }) || [];
 
-  // const count = getcurrentPagesAmount(data?.count); // currentPages
   return { tasks, itemsCount: data?.count };
 };
 

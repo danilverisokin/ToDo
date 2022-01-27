@@ -36,11 +36,10 @@ const TaskslistBar = ({
             )}
           </div>
           <div className="taskCardHalf">
-            <div className="taskListCardElem">{date.toISOString().slice(0, 10)}</div>
-
+            <div className="taskListCardElem">{new Date(date).toLocaleString()}</div>
             <Button
               className="taskListCardElem taskListCardDelete"
-              onClick={() => handleClickDelete(id)}
+              onClick={(e) => handleClickDelete(e, id)}
             >
               X
             </Button>

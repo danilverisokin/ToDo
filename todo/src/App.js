@@ -50,8 +50,6 @@ function App(props) {
     setItemsCount(itemsCount); // число тасок
   };
 
-  //ЗАПРОС НА ПОЛУЧЕНИЕ ВСЕХ ТАСОК
-
   const postTask = async (params, body) => {
     await postTaskApi(params, body);
     await getTaskList(params);
@@ -110,7 +108,6 @@ function App(props) {
       const body = {
         name: newTaskName,
         done: false,
-        createdAt: new Date(),
       };
 
       postTask(params, body);
@@ -156,9 +153,7 @@ function App(props) {
       page: 1,
     };
     const body = {
-      name: name,
       done: e.target.checked,
-      createAt: new Date(),
     };
     checkTask(params, body);
     setCurrentPage(1);
@@ -200,7 +195,8 @@ function App(props) {
   };
 
   // Функция удаляющая карточку
-  const handleClickDelete = (actId) => {
+  const handleClickDelete = (e, actId) => {
+    e.currentTarget.disabled = true;
     const params = {
       userId: 4,
       id: actId,
@@ -214,8 +210,8 @@ function App(props) {
   };
 
   // PAGINATION
-  const handleChangePage = (currentPage) => {
-    setCurrentPage(currentPage);
+  const handleChangePage = (page) => {
+    setCurrentPage(page);
   };
 
   return (
