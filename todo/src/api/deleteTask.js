@@ -1,11 +1,11 @@
 import axios from 'axios';
+import { PORT } from '../constants';
 
 const deleteTaskApi = async (params) => {
   try {
     const { userId, id } = params;
-    const res = await axios.delete(
-      `https://todo-api-learning.herokuapp.com/v1/task/${userId}/${id}`
-    );
+    const res = await axios.delete(`${PORT}${userId}/${id}`);
+    console.log(res);
     return res;
   } catch (err) {}
 };

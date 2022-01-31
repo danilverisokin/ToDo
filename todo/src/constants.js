@@ -8,3 +8,5 @@ export const SORT_DATE_VARIANTS = {
   SORT_ASC: 'asc',
   SORT_DESC: 'desc',
 };
+
+export const PORT = 'http://localhost:4001/task/';
