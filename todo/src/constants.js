@@ -9,4 +9,4 @@ export const SORT_DATE_VARIANTS = {
   SORT_DESC: 'desc',
 };
 
-export const PORT = 'http://localhost:4001/task/';
+export const PORT = 'http://localhost:4001/api/';

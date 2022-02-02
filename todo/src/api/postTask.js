@@ -7,7 +7,7 @@ const postTaskApi = async (params, body) => {
     const { userId } = params;
     await axios.post(`${PORT}${userId}`, body);
   } catch (err) {
-    message.error('Error', 2);
+    message.error('Такое имя уже существует', 2);
   }
 };
 
