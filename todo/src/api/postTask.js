@@ -5,7 +5,7 @@ import { PORT } from '../constants';
 const postTaskApi = async (params, body) => {
   try {
     const { userId } = params;
-    await axios.post(`${PORT}${userId}`, body);
+    await axios.post(`${PORT}`, body);
   } catch (err) {
     message.error('Такое имя уже существует', 2);
   }

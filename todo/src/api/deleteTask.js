@@ -4,7 +4,7 @@ import { PORT } from '../constants';
 const deleteTaskApi = async (params) => {
   try {
     const { userId, id } = params;
-    const res = await axios.delete(`${PORT}${userId}/${id}`);
+    const res = await axios.delete(`${PORT}/${id}`);
     return res;
   } catch (err) {}
 };

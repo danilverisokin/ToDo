@@ -4,7 +4,7 @@ import { PORT } from '../constants';
 
 const getTaskListAPI = async (params) => {
   const { userId, filterBy, order, page } = params;
-  const { data } = await axios.get(`${PORT}${userId}`, {
+  const { data } = await axios.get(`${PORT}`, {
     params: {
       filterBy,
       order,

@@ -39,7 +39,7 @@ function App(props) {
       return response;
     },
     (error) => {
-      // message.error(`${error.response.data.message}`, 2);
+      message.error(`${error.response.data.message}`, 2);
     }
   );
 
