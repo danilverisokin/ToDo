@@ -113,7 +113,7 @@ function App(props) {
       const initialState = {
         filterBy: FILTER_VARIANTS.FILTER_ALL,
         order: SORT_DATE_VARIANTS.SORT_DESC,
-        page: 1,
+        currentPage: 1,
       };
       setTasksFilter(initialState.filterBy);
       setSortByDate(initialState.order);
