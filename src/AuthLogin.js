@@ -1,6 +1,9 @@
 import { Input, Button } from 'antd';
+import { Navigate } from 'react-router-dom';
 
 const AuthLogin = () => {
+  // localStorage.setItem('token', token);
+  // navigate('/')
   return (
     <div>
       <Input placeholder="Login" />

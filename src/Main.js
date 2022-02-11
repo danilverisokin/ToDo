@@ -44,6 +44,13 @@ const Main = () => {
     }
   );
 
+  // axios.interceptors.request.use(
+  //   (response) => {
+
+  //   },
+  //   (error) => {}
+  // );
+
   const getTaskList = async (params) => {
     const { tasks, itemsCount } = await getTaskListAPI(params);
     setTasksList(tasks); // массив тасок
@@ -92,6 +99,9 @@ const Main = () => {
       order: sortByDate,
       page: currentPage,
     };
+    if (!localStorage.getItem('token')) {
+      navigate('/ToDo/login');
+    }
     getTaskList(params);
   }, [tasksFilter, sortByDate, currentPage]);
 
