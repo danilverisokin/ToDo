@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+* {
+  font-family: 'Pacifico', cursive;
+  margin: 0;
+}
+body {
+  min-height: 100vh;
+  background-color: coral;
+}
+.all_content {
+  min-width: 500px;
+  max-width: 700px;
+
+  background-color: burlywood;
+
+  display: flex;
+  flex-direction: column;
+
+  border: 2px solid black;
+  border-radius: 10px;
+  margin: 15px auto;
+}
+.container {
+  padding-bottom: 20px;
+}
+
+/* TASKINPUT */
+.taskInput {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.toDoTitle {
+  font-size: 40px;
+}
+.ant-input.inputString {
+  width: 350px;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: antiquewhite;
+  font-family: 'Pacifico', cursive;
+  line-height: 33px;
+  font-size: 18px;
+}
+
+/* TASKSFILTERBAR */
+.filterBar {
+  display: flex;
+  justify-content: space-between;
+
+  font-size: 20px;
+}
+.filterButtons {
+  padding: 0;
+  margin: 10px;
+
+  display: flex;
+}
+.sortByDateElem {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+
+  margin-right: 15px;
+  height: 41px;
+  max-width: 100%;
+  border-radius: 10px;
+  background-color: antiquewhite;
+  border: 2px solid black;
+}
+
+.filterButton {
+  padding: 5px;
+  margin: 5px;
+  min-width: 60px;
+  max-width: 100%;
+  border-radius: 10px;
+  background-color: #faebd7;
+  font-size: 18px;
+}
+.buttonsMainItemPushed {
+  padding: 5px;
+  margin: 5px;
+  min-width: 60px;
+  max-width: 100%;
+  border-radius: 10px;
+  background-color: #93aba1;
+  font-size: 18px;
+}
+.sortByDateText {
+  text-decoration: underline;
+  margin: 0 10px 0 5px;
+}
+.sortButton {
+  margin-right: 5px;
+  background-color: antiquewhite;
+  border-radius: 10px;
+}
+.buttonsSortArrowsItemPushed {
+  margin-right: 5px;
+  background-color: #93aba1;
+  border-radius: 10px;
+}
+
+/* TASKSLISTBAR */
+
+.taskCard {
+  display: flex;
+  display: flex;
+  justify-content: space-between;
+
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: antiquewhite;
+
+  margin: auto;
+  margin-bottom: 10px;
+
+  width: 450px;
+  padding: 10px;
+}
+.taskCard:last-child {
+  margin-bottom: 0;
+}
+.taskCardHalf {
+  display: flex;
+  align-items: center;
+}
+.taskCardHalf:first-child {
+  min-width: 50%;
+}
+.ant-checkbox-wrapper.taskListCardElem {
+  margin-right: 10px;
+}
+.taskListCardElem:last-child {
+  margin-right: 0;
+}
+.taskListCardText {
+  background-color: antiquewhite;
+  cursor: pointer;
+  min-width: 100%;
+}
+.taskListCardDelete {
+  background-color: antiquewhite;
+  border-radius: 10px;
+}
+
+/* TASKPAGINATIONBAR */
+.pagination {
+  text-align: center;
+}
+
+/* Pagination */
+/* .slider {
+  width: 400px;
+  margin: auto;
+
+  display: flex;
+  justify-content: center;
+}
+.sliderItem {
+  width: 40px;
+  margin-right: 5px;
+
+  background-color: #faebd7;
+  padding: 5px;
+
+  border-radius: 10px;
+}
+.sliderArrow:first-child {
+  margin-left: 5px;
+}
+.buttonsPaginationActive {
+  width: 40px;
+  margin-right: 5px;
+
+  background-color: #93aba1;
+  padding: 5px;
+
+  border-radius: 10px;
+} */
