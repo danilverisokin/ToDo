@@ -1,7 +1,7 @@
 export const FILTER_VARIANTS = {
-  FILTER_ALL: null,
-  FILTER_DONE: 'done',
-  FILTER_UNDONE: 'undone',
+  FILTER_ALL: '',
+  FILTER_DONE: 'true',
+  FILTER_UNDONE: 'false',
 };
 
 export const SORT_DATE_VARIANTS = {
